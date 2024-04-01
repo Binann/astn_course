@@ -1,0 +1,158 @@
+﻿@page "/admin-course-category"
+<div id="db-wrapper">
+  <!-- navbar vertical -->
+  <!-- Sidebar -->
+  <!-- Page Content -->
+  <_Sidebar></_Sidebar>
+  <main id="page-content">
+    <_Header></_Header>
+    <!-- Container fluid -->
+    <section class="container-fluid p-4">
+      <div class="row">
+        <!-- Page Header -->
+        <div class="col-lg-12 col-md-12 col-12">
+          <div class="border-bottom pb-3 mb-3 d-md-flex align-items-center justify-content-between">
+            <div class="mb-3 mb-md-0">
+              <h1 class="mb-1 h2 fw-bold">Courses Category</h1>
+              <!-- Breadcrumb -->
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item">
+                    <a href="../dashboard/admin-dashboard.html">Dashboard</a>
+                  </li>
+                  <li class="breadcrumb-item">
+                    <a href="#">Courses</a>
+                  </li>
+                  <li class="breadcrumb-item active" aria-current="page">Courses Category</li>
+                </ol>
+              </nav>
+            </div>
+            <div>
+              <a @onclick="() => editCategory = true" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newCatgory">Add New Category</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-12">
+          <!-- Card -->
+          <div class="card mb-4">
+            <!-- Card header -->
+            <div class="card-header border-bottom-0">
+              <!-- Form -->
+              <form class="d-flex align-items-center">
+                <span class="position-absolute ps-3 search-icon">
+                  <i class="fe fe-search"></i>
+                </span>
+                <input type="search" class="form-control ps-6" placeholder="Search Course Category" />
+              </form>
+            </div>
+            <!-- Table -->
+            <div class="table-responsive border-0 overflow-y-hidden">
+              <table class="table mb-0 text-nowrap table-centered table-hover table-with-checkbox">
+                <thead class="table-light">
+                  <tr>
+                    <th style="padding-right: 60px;">Category</th>
+                    <th>Slug</th>
+                    <th>Course</th>
+                    <th>Date Created</th>
+                    <th>Date Updated</th>
+                    <th>Status</th>
+                    <th style="padding-right: 67px;"></th>
+                  </tr>
+                </thead>
+                <tbody id="category_listing">
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+<!-- Modal -->
+@if (editCategory)
+{
+  <div class="modal is-active " tabindex="-1" role="dialog" aria-labelledby="newCatgoryLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" >
+      <div class="modal-content bg-light">
+        <div class="modal-header">
+          <h4 class="modal-title mb-0" id="newCatgoryLabel">Create New Category</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="width: 400px">
+          <div class="needs-validation" novalidate>
+            <div class="mb-3 mb-2">
+              <div class="form-label" for="title">
+                Title
+                <span class="text-danger">*</span>
+              </div>
+              <input @bind="categoryTemp.name" type="text" class="form-control" placeholder="Input name of Category" id="title" required />
+              <div class="invalid-feedback">Please enter category.</div>
+            </div>
+            <div class="mb-3 mb-3">
+              <div class="form-label">Description</div>
+              <div id="editor">
+                <textarea @bind="categoryTemp.description" type="text" class="form-control" placeholder="Input description" id="title" required />
+              </div>
+            </div>
+            <div class="mb-3 mb-2">
+              <div class="form-label" for="parent">Choose Major</div>
+              <select @onchange="SelectMajor" class="form-select" id="parent" required="">
+                <option selected="" value="">Select</option>
+                <option value="None">None</option>
+                <option value="Course">Course</option>
+                <option value="Tutorial">Tutorial</option>
+                <option value="Workshop">Workshop</option>
+                <option value="Company">Company</option>
+              </select>
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Enabled</label>
+              <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-input" id="customSwitch1" checked />
+                <label class="form-check-label" for="customSwitch1"></label>
+              </div>
+            </div>
+            <div>
+              <button type="submit" class="btn btn-primary" for="category_form">Add New Category</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+@code {
+  [CascadingParameter]
+  public MainLayout Layout { get; set; }
+
+  private bool editCategory = false;
+  private CategoryModel categoryTemp = new();
+
+  protected override Task OnInitializedAsync()
+  {
+    return base.OnInitializedAsync();
+  }
+
+  private void OpenCategory(CategoryModel category)
+  {
+    editCategory = true;
+    categoryTemp = category;
+  }
+
+  private void CancelCategory()
+  {
+
+  }
+
+  private void SelectMajor(ChangeEventArgs e)
+  {
+    
+  }
+
+
+}

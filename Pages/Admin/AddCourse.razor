@@ -1,0 +1,163 @@
+﻿@page "/admin-add-course"
+
+<Header></Header>
+
+<main class="has-text-dark " data-theme="dark">
+  <section class="section background-darkmode-dark">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-offset-1 is-10">
+          <div class="columns is-vcentered is-justify-content-space-between">
+            <!-- Content -->
+            <div class="mb-lg-0 pb-4 pt-4">
+              <h1 class="title is-light">Add New Course</h1>
+            </div>
+            <div class="buttons">
+              <a href="/admin-course-overview" class="button">Back to Course</a>
+              <a href="" class="button is-dark">Save</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Page Content -->
+  <section class="section">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-10">
+          <!-- Stepper Button -->
+          <div class="tabs is-centered is-boxed">
+            <ul>
+              <li id="basicInfor-tab" class="is-active">
+                <a>
+                  <span>Basic Information</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <!-- Stepper content -->
+          <div class="mt-5">
+            <div class="tab-content">
+              <!-- Content one -->
+              <div class="content ">
+                <!-- Card -->
+                <div class="card py-2">
+                  <header class="card-header px-4 py-3 background-darkmode-dark">
+                    <p class="card-header-title mb-0">Basic Information</p>
+                  </header>
+                  <!-- Card body -->
+                  <div class="card-content background-darkmode-dark has-text-light">
+                    <div class="field">
+                      <label for="courseTitle" class="label">Course Title</label>
+                      <div class="control">
+                        <input @bind="course.name" id="courseTitle" class="input" type="text"
+                               placeholder="Course Title " />
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">Courses category</label>
+                      <div class="control">
+                        <div class="select">
+                          <select @onchange="ChangeCategory">
+                            <option value="">Select category</option>
+                            @foreach(var category in categories)
+                            {
+                              <option value="@category.id">@category.name</option>
+                            }
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">Courses level</label>
+                      <div class="control">
+                        <div class="select">
+                          <select>
+                            <option value="">Select level</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="Beignners">Beignners</option>
+                            <option value="Advance">Advance</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">Course Description</label>
+                      <div class="field">
+                        <div class="control">
+                          <textarea id="courseTitle" style="height: 100px" class="input" type="text"
+                                 placeholder="Course Description " />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Content two -->
+              <div class="content "
+                   aria-labelledby="courseFormtrigger2">
+                <!-- Card -->
+                <div class="card">
+                  <header class="card-header px-4 py-3 background-darkmode-dark">
+                    <p class="card-header-title mb-0">Courses Media</p>
+                  </header>
+                  <!-- Card body -->
+                  <div class="card-content background-darkmode-dark has-text-light" style="min-height: 100px; max-height: 1000px;">
+                    <div class="container">
+                      <div class="file has-name">
+                        <label class="file-label is-justify-content-center is-align-items-center">
+                          <input class="file-input js-form-upload-control" type="file"
+                                 name="upload" id="upload" multiple>
+                          <span class="file-cta">
+                            <span class="file-icon">
+                              <i class="fas fa-upload"></i>
+                            </span>
+                            <span class="file-label">
+                              Upload
+                            </span>
+                          </span>
+                          <button class="file-name has-text-centered">Clear</button>
+                          <span class="ml-2" id="file-name">
+                            No file uploaded
+                          </span>
+                        </label>
+                      </div>
+                      <img id="preview" class="m-2" src="" alt="Image preview"
+                           style="display: none;">
+
+                    </div>
+                  </div>
+                </div>
+                <!-- Button -->
+              </div>
+              <!-- COntent three -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+@code {
+  [CascadingParameter]
+  public MainLayout Layout { get; set; }
+  private CourseModel course = new();
+  private List<CategoryModel> categories = new();
+
+  protected override async Task OnInitializedAsync()
+  {
+    categories = await DbCategory.GetAll();
+  }
+
+  private bool Validate()
+  {
+    return false;
+  }
+
+  private void ChangeCategory(ChangeEventArgs e)
+  {
+    course.category_id = e.ToString();
+  }
+}

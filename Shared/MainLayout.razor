@@ -1,0 +1,33 @@
+﻿@inherits LayoutComponentBase
+@inject NavigationManager navigation
+@inject IJSRuntime JSRuntime
+
+<PageTitle>astn_course</PageTitle>
+<CascadingValue Value="this">
+	@Body
+</CascadingValue>
+@code {
+	public UserModel User = new();
+
+  protected override async Task OnAfterRenderAsync(bool firstrender)
+  {
+    if (User == null)
+    {
+      var userID = await JSRuntime.InvokeAsync<string>("getCookie", "_user");
+      if (!string.IsNullOrEmpty(userID))
+      {
+        User = await DbUser.GetById(userID);
+        if (User == null)
+        {
+          await JSRuntime.InvokeVoidAsync("deleteCookie", "_user");
+        }
+        StateHasChanged();
+      }
+      else
+      {
+        navigation.NavigateTo("");
+      }
+    }
+  }
+}
+
