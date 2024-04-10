@@ -2031,3 +2031,20 @@ function setWidth(selectedProperty, dotnet) {
     dotnet.invokeMethodAsync("GetSize", lastSizeData);
   }
 }
+
+function RateCourse() {
+  document.querySelectorAll('.modal-rating i').forEach(function (star) {
+    star.addEventListener('click', function () {
+      let stars = Array.from(this.parentNode.children);
+      let index = stars.indexOf(this);
+
+      stars.forEach((star, i) => {
+        if (i <= index) {
+          star.className = 'fa-solid fa-star fa-2x';
+        } else {
+          star.className = 'fa-regular fa-star fa-2x';
+        }
+      });
+    });
+  });
+}

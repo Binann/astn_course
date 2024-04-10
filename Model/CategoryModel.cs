@@ -2,16 +2,19 @@
 
 namespace astn_course.Model
 {
-    [BsonIgnoreExtraElements]
-    public class CategoryModel
-    {
-        [BsonId]
-        public string id { get;set; }
-        public bool delete { get; set; }
-        public string name {  get; set; }   
-        public string image { get; set; }
-        public string department { get; set; }
-        public string description { get;set; }
+  [BsonIgnoreExtraElements]
+  public class CategoryModel
+  {
+    [BsonId]
+    public string id { get; set; }
+    public string name { get; set; }
+    public string description { get; set; }
+    public long date_create { get; set; }
+    public bool active { get; set; }
+    public string major { get; set; }
 
-    }
+
+
+
+  }
 }

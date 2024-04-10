@@ -22,8 +22,8 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/APPLICATION DEVELOPMENT/code/astn_course/Pages/Admin/AddCourse.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cQWRkQ291cnNlLnJhem9y
+[D:/APPLICATION DEVELOPMENT/code/astn_course/Pages/Account.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWNjb3VudC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/APPLICATION DEVELOPMENT/code/astn_course/Pages/Admin/CourseByCategory.razor]
@@ -32,6 +32,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/APPLICATION DEVELOPMENT/code/astn_course/Pages/Admin/CourseCategory.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cQ291cnNlQ2F0ZWdvcnkucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/APPLICATION DEVELOPMENT/code/astn_course/Pages/Admin/CourseDetailAdmin.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cQ291cnNlRGV0YWlsQWRtaW4ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/APPLICATION DEVELOPMENT/code/astn_course/Pages/Admin/CourseOverview.razor]

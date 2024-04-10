@@ -1,706 +1,243 @@
 ﻿@page "/homepage"
 
 <PageTitle>@_title</PageTitle>
-
-<Header></Header>		
-
-			<section style="padding-top: 80px;">
-				<div class="container ">
-					<div class="row align-items-center g-0">
-						<div class="col-xl-5 col-lg-6 col-md-12">
-							<div class="row align-items-center justify-content-center py-7 py-lg-0 ">
-								<h1 class="text-dark text-center display-4 fw-bold">
-									Welcome to <span style="color: #0090FF;">OW</span> - Best Learning Application ever exist
-								</h1>
-								<form class="my-3 mt-lg-0 d-flex align-items-center">
-									<span class="position-absolute ps-3 search-icon">
-										<i class="fe fe-search"></i>
-									</span>
-									<label for="search" class="visually-hidden"></label>
-									<input type="search" id="search" class="form-control shadow ps-7 rounded-4"
-												 placeholder="Search Courses" />
-								</form>
-								<!-- <p class="text-dark-50 mb-4 lead">Hand-picked Instructor and expertly crafted courses,
-										designed for the modern students and entrepreneur.</p> -->
-								<div class="brand-button d-flex justify-content-center">
-									<a href="pages/course-filter-list.html" class="btn btn-dark shadow me-1">Courses</a>
-									<a href="pages/sign-in.html" class="btn btn-white shadow ms-1">About Us</a>
-								</div>
+	@if (Layout.User != null)
+{
+	<Header></Header>
+	<section class="brand section">
+		<div class="container">
+			<div class="columns is-vcentered is-justify-content-space-around">
+				<div class="column is-5">
+					<div class="content has-text-centered">
+						<h1 class="title is-1 has-text-light text-shadow">
+							Welcome to <span style="color: #0090FF;">OW</span>
+							- Best Learning Application ever exist
+						</h1>
+						<div class="field has-addons">
+							<div class="control has-icons-left is-expanded">
+								<input class="input" type="search" id="search" placeholder="Search Courses">
+								<span class="icon is-small is-left">
+									<i class="fas fa-search"></i>
+								</span>
 							</div>
 						</div>
-						<div class="hover-zoom col-xl-7 col-lg-6 col-md-12 text-lg-end text-center">
-							<img src="assets/images/background/banner-background.png" style="width:40em;" alt="heroimg"
-									 class="img-fluid shadow" />
+						<div class="buttons is-centered">
+							<a href="pages/course-filter-list-bulma.html"
+								 class="button is-primary box-shadow">Courses</a>
+							<a href="pages/sign-in.html" class="button is-light box-shadow">About Us</a>
 						</div>
 					</div>
 				</div>
-			</section>
+				<!-- <div class="column is-5">
+						<figure class="image box-shadow">
+								<img src="assets/images/background/banner-background.png" alt="heroimg"
+										style="width:40em;">
+						</figure>
+				</div> -->
+			</div>
+		</div>
+	</section>
 
-			<!-- Banner here -->
-			<section class="py-4 m-8">
-				<div class="container">
-					<div class="row align-items-center justify-content-between">
-						<div class="col-lg-3 col-md-6 mb-lg-0 mb-4">
-							<div class="d-flex align-items-center justify-content-center shadow rounded-2 py-2">
-								<span class="icon-shape icon-lg text-center text-dark-warning fs-4">
-									<i class="fe fe-video"></i>
-								</span>
-								<div class="me-3">
-									<h4 class="mb-0 fw-semibold">30,000 online courses</h4>
-									<p class="mb-0">Enjoy & Develop your skills</p>
-								</div>
-							</div>
-						</div>
-						<!-- Features -->
-						<div class="col-xl-3 col-lg-4 col-md-6 mb-lg-0 mb-4">
-							<div class="d-flex align-items-center justify-content-center shadow rounded-2 py-2">
-								<span class="icon-shape icon-lg text-center text-dark-warning fs-4">
-									<i class="fe fe-users"></i>
-								</span>
-								<div class="me-3">
-									<h4 class="mb-0 fw-semibold">Expert instruction</h4>
-									<p class="mb-0">Find the right instructor for you</p>
-								</div>
-							</div>
-						</div>
-						<!-- Features -->
-						<div class="col-xl-3 col-lg-4 mb-lg-0 col-md-12">
-							<div class="d-flex align-items-center justify-content-center shadow rounded-2 py-2">
-								<span class="icon-shape icon-lg text-center text-dark-warning fs-4">
-									<i class="fe fe-clock"></i>
-								</span>
-								<div class="me-3">
-									<h4 class="mb-0 fw-semibold">Lifetime access</h4>
-									<p class="mb-0">Learn on your schedule</p>
-								</div>
-							</div>
-						</div>
-						<!-- Features -->
-						<div class="col-xl-3 col-lg-4 col-md-12">
-							<div class="d-flex align-items-center justify-content-center shadow rounded-2 py-2">
-								<span class="icon-shape icon-lg text-center text-dark-warning fs-4">
-									<i class="bi bi-person-check-fill"></i>
-								</span>
-								<div class="me-3">
-									<h4 class="mb-0 fw-semibold">90% Student enjoy</h4>
-									<p class="mb-0">Many students believe</p>
-								</div>
-							</div>
+	<!-- Banner here -->
+	<section class="section ">
+		<div class="container">
+			<div class="columns is-multiline">
+				<div class="column  is-3">
+					<div class="box has-text-centered background-darkmode-dark">
+						<span class="icon is-large has-text-warning">
+							<i class="fas fa-video"></i>
+						</span>
+						<div>
+							<h4 class="title has-text-light is-4">30,000 online courses</h4>
+							<p class="subtitle has-text-light is-6">Enjoy & Develop your skills</p>
 						</div>
 					</div>
 				</div>
-			</section>
-			<!-- Content -->
-      <section class="section" id="body-content">
-                <!-- demo -->
-                <div class="tab-content container">
-                    <div class="row">
-                      <div class="column">
-                        <h2 class=" title primary-color">Hot Course</h2>
-                      </div>
-                    </div>
-      <div class="position-relative slider-wrapper">
-        <div class="is-flex  text-dark tns-slider" id="">
-          <!-- courses here! -->
-          <div class="card hover-zoom tns-item">
-            <a href="./pages/course-single.html">
-              <div class="card-image">
-                <figure class="image">
-                  <img src="assets/images/course/course-react.jpg" alt="course">
-                </figure>
-              </div>
-            </a>
-            <div class="card-content box-shadow">
-              <div class="media">
-                <div class="media-content">
-                  <p class="title is-6">
-                    <a href="pages/course-single.html">
-                      How to
-                      easily create a website with React
-                    </a>
-                  </p>
-                  <div class="is-flex is-align-items-center">
-                    <figure class="image is-32x32 mr-2">
-                      <img class="is-rounded"
-                           src="assets/images/avatar/Firefly person avatar, realistic female2.jpg"
-                           alt="avatar">
-                    </figure>
-                    <p class="subtitle is-6 has-text-light">Morris Mccoy</p>
-                  </div>
-                </div>
-                <div class="media-right">
-                  <span class="icon has-text-light">
-                    <i class="fas fa-bookmark"></i>
-                  </span>
-                </div>
-              </div>
-              <div class="content has-text-light">
-                <p>learning React, fist get used to with components</p>
-                <div class="is-flex is-align-items-center">
-                  <time datetime="2016-1-1">3h 56m</time>
-                  <span class="icon has-text-warning ml-6">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </span>
-                  <span class="has-text-warning ml-6">4.5</span>
-                  <span class="ml-2">(7,700)</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card hover-zoom tns-item">
-            <a href="./pages/course-single.html">
-              <div class="card-image">
-                <figure class="image">
-                  <img src="assets/images/course/course-graphql.jpg" alt="course">
-                </figure>
-              </div>
-            </a>
-            <div class="card-content box-shadow">
-              <div class="media">
-                <div class="media-content">
-                  <p class="title is-6">
-                    <a href="pages/course-single.html">
-                      GraphQL:
-                      introduction to
-                      graphQL for beginners
-                    </a>
-                  </p>
-                  <div class="is-flex is-align-items-center">
-                    <figure class="image is-32x32 mr-2">
-                      <img class="is-rounded"
-                           src="assets/images/avatar/Firefly person avatar, realistic female2.jpg"
-                           alt="avatar">
-                    </figure>
-                    <p class="subtitle is-6 has-text-light">Ted Hawkins</p>
-                  </div>
-                </div>
-                <div class="media-right">
-                  <span class="icon has-text-light">
-                    <i class="fas fa-bookmark"></i>
-                  </span>
-                </div>
-              </div>
-              <div class="content has-text-light">
-                <p>learning basic react, get used to with components</p>
-                <div class="is-flex is-align-items-center">
-                  <time datetime="2016-1-1">2h 46m</time>
-                  <span class="icon has-text-warning ml-6">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </span>
-                  <span class="has-text-warning ml-6">4.5</span>
-                  <span class="ml-2">(9,300)</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card hover-zoom tns-item">
-            <a href="./pages/course-single.html">
-              <div class="card-image">
-                <figure class="image">
-                  <img src="assets/images/course/course-angular.jpg" alt="course">
-                </figure>
-              </div>
-            </a>
-            <div class="card-content box-shadow">
-              <div class="media">
-                <div class="media-content">
-                  <p class="title is-6">
-                    <a href="pages/course-single.html">
-                      Angular
-                      - the complete guide for beginner
-                    </a>
-                  </p>
-                  <div class="is-flex is-align-items-center">
-                    <figure class="image is-32x32 mr-2">
-                      <img class="is-rounded"
-                           src="assets/images/avatar/Firefly person avatar, realistic female2.jpg"
-                           alt="avatar">
-                    </figure>
-                    <p class="subtitle is-6 has-text-light">Juanita Bell</p>
-                  </div>
-                </div>
-                <div class="media-right">
-                  <span class="icon has-text-light">
-                    <i class="fas fa-bookmark"></i>
-                  </span>
-                </div>
-              </div>
-              <div class="content has-text-light">
-                <p>learning React, fist get used to with components</p>
-                <div class="is-flex is-align-items-center">
-                  <time datetime="2016-1-1">1h 30m</time>
-                  <span class="icon has-text-warning ml-6">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </span>
-                  <span class="has-text-warning ml-6">4.5</span>
-                  <span class="ml-2">(8,890)</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card hover-zoom tns-item">
-            <a href="./pages/course-single.html">
-              <div class="card-image">
-                <figure class="image">
-                  <img src="assets/images/course/course-python.jpg" alt="course">
-                </figure>
-              </div>
-            </a>
-            <div class="card-content box-shadow">
-              <div class="media">
-                <div class="media-content">
-                  <p class="title is-6">
-                    <a href="pages/course-single.html">
-                      The
-                      Python Course: build web application
-                    </a>
-                  </p>
-                  <div class="is-flex is-align-items-center">
-                    <figure class="image is-32x32 mr-2">
-                      <img class="is-rounded"
-                           src="assets/images/avatar/Firefly person avatar, realistic female2.jpg"
-                           alt="avatar">
-                    </figure>
-                    <p class="subtitle is-6 has-text-light">Claire Robertson</p>
-                  </div>
-                </div>
-                <div class="media-right">
-                  <span class="icon has-text-light">
-                    <i class="fas fa-bookmark"></i>
-                  </span>
-                </div>
-              </div>
-              <div class="content has-text-light">
-                <p>learning basic react, get used to with components</p>
-                <div class="is-flex is-align-items-center">
-                  <time datetime="2016-1-1">2h 30m</time>
-                  <span class="icon has-text-warning ml-6">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </span>
-                  <span class="has-text-warning ml-6">4.5</span>
-                  <span class="ml-2">(13,245)</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-                </div>
-                <!-- recommend -->
-                <div class="container ">
-                    <div class="row">
-                        <div class="column">
-                            <h2 class="mb-0 title primary-color">Recommend</h2>
-                        </div>
-                    </div>
-                    <div class="position-relative slider-wrapper">
-                        <div class="is-flex  text-dark tns-slider" id="">
-                            <!-- courses here! -->
-                            <div class="card hover-zoom tns-item">
-                                <a href="./pages/course-single.html">
-                                    <div class="card-image">
-                                        <figure class="image">
-                                            <img src="assets/images/course/course-react.jpg" alt="course">
-                                        </figure>
-                                    </div>
-                                </a>
-                                <div class="card-content box-shadow">
-                                    <div class="media">
-                                        <div class="media-content">
-                                            <p class="title is-6"><a href="pages/course-single.html">How to
-                                                    easily create a website with React</a></p>
-                                            <div class="is-flex is-align-items-center">
-                                                <figure class="image is-32x32 mr-2">
-                                                    <img class="is-rounded"
-                                                        src="assets/images/avatar/Firefly person avatar, realistic female2.jpg"
-                                                        alt="avatar">
-                                                </figure>
-                                                <p class="subtitle is-6 has-text-light">Morris Mccoy</p>
-                                            </div>
-                                        </div>
-                                        <div class="media-right">
-                                            <span class="icon has-text-light">
-                                                <i class="fas fa-bookmark"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="content has-text-light">
-                                        <p>learning React, fist get used to with components</p>
-                                        <div class="is-flex is-align-items-center">
-                                            <time datetime="2016-1-1">3h 56m</time>
-                                            <span class="icon has-text-warning ml-6">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </span>
-                                            <span class="has-text-warning ml-6">4.5</span>
-                                            <span class="ml-2">(7,700)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card hover-zoom tns-item">
-                                <a href="./pages/course-single.html">
-                                    <div class="card-image">
-                                        <figure class="image">
-                                            <img src="assets/images/course/course-graphql.jpg" alt="course">
-                                        </figure>
-                                    </div>
-                                </a>
-                                <div class="card-content box-shadow">
-                                    <div class="media">
-                                        <div class="media-content">
-                                            <p class="title is-6"><a href="pages/course-single.html">GraphQL:
-                                                    introduction to
-                                                    graphQL for beginners</a></p>
-                                            <div class="is-flex is-align-items-center">
-                                                <figure class="image is-32x32 mr-2">
-                                                    <img class="is-rounded"
-                                                        src="assets/images/avatar/Firefly person avatar, realistic female2.jpg"
-                                                        alt="avatar">
-                                                </figure>
-                                                <p class="subtitle is-6 has-text-light">Ted Hawkins</p>
-                                            </div>
-                                        </div>
-                                        <div class="media-right">
-                                            <span class="icon has-text-light">
-                                                <i class="fas fa-bookmark"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="content has-text-light">
-                                        <p>learning basic react, get used to with components</p>
-                                        <div class="is-flex is-align-items-center">
-                                            <time datetime="2016-1-1">2h 46m</time>
-                                            <span class="icon has-text-warning ml-6">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </span>
-                                            <span class="has-text-warning ml-6">4.5</span>
-                                            <span class="ml-2">(9,300)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card hover-zoom tns-item">
-                                <a href="./pages/course-single.html">
-                                    <div class="card-image">
-                                        <figure class="image">
-                                            <img src="assets/images/course/course-angular.jpg" alt="course">
-                                        </figure>
-                                    </div>
-                                </a>
-                                <div class="card-content box-shadow">
-                                    <div class="media">
-                                        <div class="media-content">
-                                            <p class="title is-6"><a href="pages/course-single.html">Angular
-                                                    - the complete guide for beginner</a></p>
-                                            <div class="is-flex is-align-items-center">
-                                                <figure class="image is-32x32 mr-2">
-                                                    <img class="is-rounded"
-                                                        src="assets/images/avatar/Firefly person avatar, realistic female2.jpg"
-                                                        alt="avatar">
-                                                </figure>
-                                                <p class="subtitle is-6 has-text-light">Juanita Bell</p>
-                                            </div>
-                                        </div>
-                                        <div class="media-right">
-                                            <span class="icon has-text-light">
-                                                <i class="fas fa-bookmark"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="content has-text-light">
-                                        <p>learning React, fist get used to with components</p>
-                                        <div class="is-flex is-align-items-center">
-                                            <time datetime="2016-1-1">1h 30m</time>
-                                            <span class="icon has-text-warning ml-6">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </span>
-                                            <span class="has-text-warning ml-6">4.5</span>
-                                            <span class="ml-2">(8,890)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card hover-zoom tns-item">
-                                <a href="./pages/course-single.html">
-                                    <div class="card-image">
-                                        <figure class="image">
-                                            <img src="assets/images/course/course-python.jpg" alt="course">
-                                        </figure>
-                                    </div>
-                                </a>
-                                <div class="card-content box-shadow">
-                                    <div class="media">
-                                        <div class="media-content">
-                                            <p class="title is-6"><a href="pages/course-single.html">The
-                                                    Python Course: build web application</a></p>
-                                            <div class="is-flex is-align-items-center">
-                                                <figure class="image is-32x32 mr-2">
-                                                    <img class="is-rounded"
-                                                        src="assets/images/avatar/Firefly person avatar, realistic female2.jpg"
-                                                        alt="avatar">
-                                                </figure>
-                                                <p class="subtitle is-6 has-text-light">Claire Robertson</p>
-                                            </div>
-                                        </div>
-                                        <div class="media-right">
-                                            <span class="icon has-text-light">
-                                                <i class="fas fa-bookmark"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="content has-text-light">
-                                        <p>learning basic react, get used to with components</p>
-                                        <div class="is-flex is-align-items-center">
-                                            <time datetime="2016-1-1">2h 30m</time>
-                                            <span class="icon has-text-warning ml-6">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </span>
-                                            <span class="has-text-warning ml-6">4.5</span>
-                                            <span class="ml-2">(13,245)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- new -->
-                <div class="container">
-                    <div class="row">
-                        <div class="column">
-                            <h2 class=" title primary-color">New</h2>
-                        </div>
-                    </div>
-                    <div class="position-relative slider-wrapper">
-                        <div class="is-flex  text-dark tns-slider" id="">
-                            <!-- courses here! -->
-                            <div class="card hover-zoom tns-item">
-                                <a href="./pages/course-single.html">
-                                    <div class="card-image">
-                                        <figure class="image">
-                                            <img src="assets/images/course/course-react.jpg" alt="course">
-                                        </figure>
-                                    </div>
-                                </a>
-                                <div class="card-content box-shadow">
-                                    <div class="media">
-                                        <div class="media-content">
-                                            <p class="title is-6"><a href="pages/course-single.html">How to
-                                                    easily create a website with React</a></p>
-                                            <div class="is-flex is-align-items-center">
-                                                <figure class="image is-32x32 mr-2">
-                                                    <img class="is-rounded"
-                                                        src="assets/images/avatar/Firefly person avatar, realistic female2.jpg"
-                                                        alt="avatar">
-                                                </figure>
-                                                <p class="subtitle is-6 has-text-light">Morris Mccoy</p>
-                                            </div>
-                                        </div>
-                                        <div class="media-right">
-                                            <span class="icon has-text-light">
-                                                <i class="fas fa-bookmark"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="content has-text-light">
-                                        <p>learning React, fist get used to with components</p>
-                                        <div class="is-flex is-align-items-center">
-                                            <time datetime="2016-1-1">3h 56m</time>
-                                            <span class="icon has-text-warning ml-6">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </span>
-                                            <span class="has-text-warning ml-6">4.5</span>
-                                            <span class="ml-2">(7,700)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card hover-zoom tns-item">
-                                <a href="./pages/course-single.html">
-                                    <div class="card-image">
-                                        <figure class="image">
-                                            <img src="assets/images/course/course-graphql.jpg" alt="course">
-                                        </figure>
-                                    </div>
-                                </a>
-                                <div class="card-content box-shadow">
-                                    <div class="media">
-                                        <div class="media-content">
-                                            <p class="title is-6"><a href="pages/course-single.html">GraphQL:
-                                                    introduction to
-                                                    graphQL for beginners</a></p>
-                                            <div class="is-flex is-align-items-center">
-                                                <figure class="image is-32x32 mr-2">
-                                                    <img class="is-rounded"
-                                                        src="assets/images/avatar/Firefly person avatar, realistic female2.jpg"
-                                                        alt="avatar">
-                                                </figure>
-                                                <p class="subtitle is-6 has-text-light">Ted Hawkins</p>
-                                            </div>
-                                        </div>
-                                        <div class="media-right">
-                                            <span class="icon has-text-light">
-                                                <i class="fas fa-bookmark"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="content has-text-light">
-                                        <p>learning basic react, get used to with components</p>
-                                        <div class="is-flex is-align-items-center">
-                                            <time datetime="2016-1-1">2h 46m</time>
-                                            <span class="icon has-text-warning ml-6">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </span>
-                                            <span class="has-text-warning ml-6">4.5</span>
-                                            <span class="ml-2">(9,300)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card hover-zoom tns-item">
-                                <a href="./pages/course-single.html">
-                                    <div class="card-image">
-                                        <figure class="image">
-                                            <img src="assets/images/course/course-angular.jpg" alt="course">
-                                        </figure>
-                                    </div>
-                                </a>
-                                <div class="card-content box-shadow">
-                                    <div class="media">
-                                        <div class="media-content">
-                                            <p class="title is-6"><a href="pages/course-single.html">Angular
-                                                    - the complete guide for beginner</a></p>
-                                            <div class="is-flex is-align-items-center">
-                                                <figure class="image is-32x32 mr-2">
-                                                    <img class="is-rounded"
-                                                        src="assets/images/avatar/Firefly person avatar, realistic female2.jpg"
-                                                        alt="avatar">
-                                                </figure>
-                                                <p class="subtitle is-6 has-text-light">Juanita Bell</p>
-                                            </div>
-                                        </div>
-                                        <div class="media-right">
-                                            <span class="icon has-text-light">
-                                                <i class="fas fa-bookmark"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="content has-text-light">
-                                        <p>learning React, fist get used to with components</p>
-                                        <div class="is-flex is-align-items-center">
-                                            <time datetime="2016-1-1">1h 30m</time>
-                                            <span class="icon has-text-warning ml-6">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </span>
-                                            <span class="has-text-warning ml-6">4.5</span>
-                                            <span class="ml-2">(8,890)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card hover-zoom tns-item">
-                                <a href="./pages/course-single.html">
-                                    <div class="card-image">
-                                        <figure class="image">
-                                            <img src="assets/images/course/course-python.jpg" alt="course">
-                                        </figure>
-                                    </div>
-                                </a>
-                                <div class="card-content box-shadow">
-                                    <div class="media">
-                                        <div class="media-content">
-                                            <p class="title is-6"><a href="pages/course-single.html">The
-                                                    Python Course: build web application</a></p>
-                                            <div class="is-flex is-align-items-center">
-                                                <figure class="image is-32x32 mr-2">
-                                                    <img class="is-rounded"
-                                                        src="assets/images/avatar/Firefly person avatar, realistic female2.jpg"
-                                                        alt="avatar">
-                                                </figure>
-                                                <p class="subtitle is-6 has-text-light">Claire Robertson</p>
-                                            </div>
-                                        </div>
-                                        <div class="media-right">
-                                            <span class="icon has-text-light">
-                                                <i class="fas fa-bookmark"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="content has-text-light">
-                                        <p>learning basic react, get used to with components</p>
-                                        <div class="is-flex is-align-items-center">
-                                            <time datetime="2016-1-1">2h 30m</time>
-                                            <span class="icon has-text-warning ml-6">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </span>
-                                            <span class="has-text-warning ml-6">4.5</span>
-                                            <span class="ml-2">(13,245)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+				<!-- Features -->
+				<div class="column is-3">
+					<div class="box has-text-centered background-darkmode-dark has-text-light">
+						<span class="icon is-large has-text-warning">
+							<i class="fas fa-users"></i>
+						</span>
+						<div>
+							<h4 class="title has-text-light is-4">Expert instruction</h4>
+							<p class="subtitle has-text-light is-6">Find the right instructor for you</p>
+						</div>
+					</div>
+				</div>
+				<!-- Features -->
+				<div class="column is-3">
+					<div class="box has-text-centered background-darkmode-dark has-text-light">
+						<span class="icon is-large has-text-warning">
+							<i class="fas fa-clock"></i>
+						</span>
+						<div>
+							<h4 class="title has-text-light is-4">Lifetime access</h4>
+							<p class="subtitle has-text-light is-6">Learn on your schedule</p>
+						</div>
+					</div>
+				</div>
+				<!-- Features -->
+				<div class="column is-3">
+					<div class="box has-text-centered background-darkmode-dark has-text-light">
+						<span class="icon is-large has-text-warning">
+							<i class="fas fa-user-check"></i>
+						</span>
+						<div>
+							<h4 class="title has-text-light is-4">90% Student enjoy</h4>
+							<p class="subtitle has-text-light is-6">Many students believe</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Content -->
 
-	<!-- Footer -->
-	<!-- Footer -->
-	
 
-  @code {
-  private string _title = "Homepage";
+	<section class="section" id="body-content">
+		<!-- Your course -->
+		@if (Layout.User.courses.Count > 0)
+		{
+			<div class="tab-content container">
+				<div class="row">
+					<div class="column">
+						<h2 class=" title primary-color">Your Course</h2>
+					</div>
+				</div>
+				<div class="position-relative my-4">
+					<div class="is-flex  text-dark tns-slider" id="">
+						<!-- courses here! -->
+						@foreach (var course in courses)
+						{
+							@if (Layout.User.courses.Contains(course.id))
+							{
+								<div class="card hover-zoom tns-item">
+									<a href="/course-detail/@course.id">
+										<div class="card-image">
+											<figure class="image">
+												<img src="./assets/images/upload/@course.image" alt="course">
+											</figure>
+										</div>
+									</a>
+									<div class="card-content box-shadow">
+										<div class="media">
+											<div class="media-content">
+												<p class="title is-6  text_course_home">
+													@course.name
+												</p>
+												<div class="is-flex is-align-items-center">
+													<figure class="image is-32x32 mr-2">
+														<img class="is-rounded"
+																 src="assets/images/avatar/Firefly person avatar, realistic female2.jpg"
+																 alt="avatar">
+													</figure>
+													<p class="subtitle is-6 has-text-light">Morris Mccoy</p>
+												</div>
+											</div>
+											<div class="media-right">
+												<span class="icon has-text-light">
+													<i class="fas fa-bookmark"></i>
+												</span>
+											</div>
+										</div>
+										<div class="content has-text-light">
+											<p class="course-description">learning React, fist get used to with components</p>
+											<div class="is-flex is-align-items-center">
+												<time datetime="2016-1-1">3h 56m</time>
+												<span class="icon has-text-warning ml-6">
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+												</span>
+												<span class="has-text-warning ml-6">4.5</span>
+												<span class="ml-2">(7,700)</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							}
+						}
+					</div>
+				</div>
+			</div>
+		}
+		<!-- recommend -->
+		<div class="container ">
+			<div class="row">
+				<div class="column">
+					<h2 class="mb-0 title primary-color">New Course</h2>
+				</div>
+			</div>
+			<div class="position-relative my-4">
+				<div class="is-flex  text-dark tns-slider" id="">
+					<!-- courses here! -->
+					@foreach (var course in courses)
+					{
+						<div class="card hover-zoom tns-item">
+							<a href="/course-detail/@course.id">
+								<div class="card-image">
+									<figure class="image">
+										<img src="./assets/images/upload/@course.image" alt="course">
+									</figure>
+								</div>
+							</a>
+							<div class="card-content box-shadow">
+								<div class="media">
+									<div class="media-content">
+										<p class="title is-6  text_course_home">
+											@course.name
+										</p>
+										<div class="is-flex is-align-items-center">
+											<figure class="image is-32x32 mr-2">
+												<img class="is-rounded"
+														 src="assets/images/avatar/Firefly person avatar, realistic female2.jpg"
+														 alt="avatar">
+											</figure>
+											<p class="subtitle is-6 has-text-light">Morris Mccoy</p>
+										</div>
+									</div>
+									<div class="media-right">
+										<span class="icon has-text-light">
+											<i class="fas fa-bookmark"></i>
+										</span>
+									</div>
+								</div>
+								<div class="content has-text-light">
+									<p>learning React, fist get used to with components</p>
+									<div class="is-flex is-align-items-center">
+										<time datetime="2016-1-1">3h 56m</time>
+										<span class="icon has-text-warning ml-6">
+											<i class="fas fa-star"></i>
+											<i class="fas fa-star"></i>
+											<i class="fas fa-star"></i>
+											<i class="fas fa-star"></i>
+											<i class="fas fa-star"></i>
+										</span>
+										<span class="has-text-warning ml-6">4.5</span>
+										<span class="ml-2">(7,700)</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					}
+				</div>
+			</div>
+		</div>
+	</section>
+}
+<!-- Footer -->
+<!-- Footer -->
+@code {
+	[CascadingParameter]
+	public MainLayout Layout { get; set; }
+	private string _title = "Homepage";
+	private List<CourseModel> courses = new();
 
-  protected override async Task OnInitializedAsync()
-  {
-    
-  }
+	protected override async Task OnInitializedAsync()
+	{
+		courses = await DbCourse.GetAll();
+	}
 }

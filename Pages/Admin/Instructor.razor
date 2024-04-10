@@ -7,19 +7,22 @@
 	<_Sidebar></_Sidebar>
 	<!-- Page Content -->
 	<main id="page-content">
-		<_Header></_Header>
+		@if (Layout.User != null)
+		{
+			<_Header></_Header>
+		}		
 		<!-- Container fluid -->
 		@if (!editInstructor)
 		{
-			<section class="container-fluid p-4">
+			<section class="container-fluid px-4">
 				<div class="row">
 					<!-- Page Header -->
 					<div class="col-lg-12 col-md-12 col-12">
 						<div class="border-bottom pb-3 mb-3 d-flex justify-content-between align-items-center">
 							<div class="mb-2 mb-lg-0">
-								<h1 class="mb-1 h2 fw-bold has-text-white">
-									INSTRUCTOR
-									<span class="fs-5">@(listUsers.Count > 0 ? $"({listUsers.Count})" : "")</span>
+								<h1 class="mb-1  title is-light">
+									Instructor
+									<span class="fs-5">@(users.Count > 0 ? $"({users.Count})" : "")</span>
 								</h1>
 								<!-- Breadcrumb  -->
 								<nav aria-label="breadcrumb">
@@ -33,7 +36,7 @@
 								</nav>
 							</div>
 							<div class="nav btn-group" role="tablist">
-								<a @onclick="() => editInstructor = true" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newCatgory">Add New Instructor</a>
+								<a @onclick="AddInstructor" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newCatgory">Add New </a>
 							</div>
 						</div>
 					</div>
@@ -52,27 +55,28 @@
 											<div class="card-header border-bottom-0">
 												<div class="d-flex align-items-center">
 													<span class="position-absolute ps-3 search-icon"><i class="fe fe-search"></i></span>
-													<input type="search" class="form-control ps-6" placeholder="Search Instructor">
+													<input @oninput="HandleInput" @onkeypress="SearchStudent" type="text" class="form-control ps-6" placeholder="Search Student">
 												</div>
 											</div>
 
+
 											<div class="table-responsive border-0 overflow-y-hidden">
 												<table class="table background-darkmode-dark is-fullwidth is-hoverable">
-													<thead>
+													<thead style="  background-color: #1e293b ;">
 														<tr>
-															<th>Instructor</th>
-															<th>Email</th>
-															<th>Date Created</th>
-															<th>Role</th>
-															<th>Status</th>
-															<th>Handle</th>
+
+															<th width="30%">Instructor</th>
+															<th width="30%">Email</th>
+															<th width="20%">Date Join</th>
+															<th width="5%">Active</th>
+															<th width="15%">Handle</th>
 														</tr>
 													</thead>
 													<tbody id="user_listing">
 														<!-- user item -->
-														@foreach (var instructor in listUsers)
+														@foreach (var instructor in users)
 														{
-															<tr>
+															<tr @onclick="() => UserDetail(instructor)">
 																<td>
 																	<p class="">@instructor.full_name</p>
 																</td>
@@ -80,25 +84,36 @@
 																	<p class="">@instructor.email</p>
 																</td>
 																<td>
-																	<p class="">@instructor.date_create</p>
+																	<p class="">@(new DateTime(instructor.date_create).ToString("dd/MM/yyyy"))</p>
 																</td>
 																<td>
-																	<p class="">@instructor.role</p>
-																</td>
-																<td>
-																	<p>	
-																		<i class="fa-solid fa-toggle-off"></i>
-																	</p>
+																	@if (instructor.active)
+																	{
+																		<p>
+																			<a class="has-text-success" @onclick="() => UpdateActive(instructor, false)">
+																				<i class="fa-solid fa-toggle-on"></i>
+																			</a>
+																		</p>
+																	}
+																	else
+																	{
+																		<p>
+																			<a @onclick="() => UpdateActive(instructor, true)">
+																				<i class="fa-solid fa-toggle-off"></i>
+																			</a>
+																		</p>
+																	}
+
 																</td>
 																<td>
 																	<p>
 																		<span class="icon-text">
-																			<a class="has-text-link">
+																			<a class="has-text-link" @onclick="() => Edit(instructor)">
 																				<span class="icon">
 																					<i class="fa-solid fa-pen"></i>
 																				</span>
 																			</a>
-																			<a class="has-text-danger">
+																			<a class="has-text-danger" @onclick="() => {userEdit = instructor;  confirmDelete = true; }">
 																				<span class="icon">
 																					<i class="fa-solid fa-trash"></i>
 																				</span>
@@ -113,6 +128,7 @@
 													</tbody>
 												</table>
 											</div>
+
 										</div>
 									</div>
 								</div>
@@ -136,7 +152,6 @@
 									</div>
 									<div class="buttons">
 										<a @onclick="() => editInstructor = false" class="button">Back to Course</a>
-										<a href="" class="button is-dark">Save</a>
 									</div>
 								</div>
 							</div>
@@ -158,28 +173,28 @@
 											<div class="field">
 												<p class="is-6 has-text-white has-text-weight-bold">Email</p>
 												<div class="control">
-													<input @bind="user.email" class="input" type="email" id="email" name="email" required="">
+													<input @bind="userEdit.email" class="input" type="email" id="email" name="email" required="">
 												</div>
 											</div>
 
 											<div class="field">
 												<p class="is-6 has-text-white has-text-weight-bold"> First Name  </p>
 												<div class="control">
-													<input @bind="user.first_name" class="input" type="text" name="firstname" required="">
+													<input @bind="userEdit.first_name" class="input" type="text" name="firstname" required="">
 												</div>
 											</div>
 
 											<div class="field">
 												<p class="is-6 has-text-white has-text-weight-bold">Last Name </p>
 												<div class="control">
-													<input @bind="user.last_name" class="input" type="text" name="lastname" required="">
+													<input @bind="userEdit.last_name" class="input" type="text" name="lastname" required="">
 												</div>
 											</div>
 
 											<div class="field">
 												<p class="is-6 has-text-white has-text-weight-bold">Password </p>
 												<div class="control">
-													<input @bind="user.password" class="input" type="password" id="password" name="password" required="">
+													<input @bind="userEdit.password" class="input" type="password" id="password" name="password" required="">
 												</div>
 											</div>
 
@@ -188,9 +203,16 @@
 												<div class="control">
 													<div class="select">
 														<select @onchange="(e) => ChangerRole(e)" id="role" name="role">
-															<option value="0">Student</option>
-															<option value="1">Administrator</option>
-															<option value="2">Instructor</option>
+															@foreach(var item in listRole)
+															{
+																if(userEdit.role == item.id)
+																{
+																	<option value="@item.id" selected>@item.name</option>
+																} else
+																{
+																	<option value="@item.id">@item.name</option>
+																}
+															}
 														</select>
 													</div>
 												</div>
@@ -222,26 +244,244 @@
 					</div>
 				</section>
 			</div>
-
 		}
+
+		@if (confirmDelete)
+		{
+			<div class="modal is-active">
+				<div class="modal-background"></div>
+				<div class="modal-card">
+					<section class="modal-card-body has-background-white">
+						<p>Bạn chắc chắn xóa tài khoản <strong class="has-text-black">@userEdit.full_name</strong></p>
+						<div class="buttons">
+							<a class="button is-danger" @onclick="Delete">Confirm</a>
+							<a class="button" @onclick="() => confirmDelete = false">Cancel</a>
+						</div>
+					</section>
+				</div>
+			</div>
+		}
+
+		@if (userdetail)
+		{
+			<div class="modal is-active" style="font-weight: 500; font-size: 1.25rem;">
+				<div class="modal-background"></div>
+				<div class="modal-content" style="width: 90%;; overflow: hidden;border-radius: 6px;">
+					<div class="" style="width: 100%; display: inline-block; overflow:hidden;">
+						<section class="section background-darkmode-light" style="width: 100%; height: 100%;">
+							<div class=" is-flex justify-content-between is-fullwidth">
+								<h1 class=" title is-5 primary-color">Personal Information</h1>
+								<a @onclick="() => userdetail = false">
+									<i class="fa-solid fa-xmark"></i>
+								</a>
+							</div>
+							<div class="columns" style="width: 100%;">
+								<div class="column box-shadow background-darkmode-dark" style="border-radius: 6px;">
+									<div class="">
+										<div class="is-flex is-justify-content-center">
+											<figure class="media-left">
+												<p class="image" style="width: 70px;">
+													<img src="../../assets/images/avatar/Firefly person avatar, realistic female1.jpg"
+															 alt="" class="is-rounded">
+												</p>
+											</figure>
+										</div>
+										<div class=" field">
+											<label class="is-size-6">Email</label>
+											<div class="control">
+												<input class="input" type="text" value="@userEdit.email" readonly>
+											</div>
+										</div>
+										<div class=" field">
+											<label class="is-size-6">Date Join</label>
+											<div class="control">
+												<input class="input" type="text" value=" @(new DateTime(userEdit.date_create).ToString("dd/MM/yyyy"))" readonly>
+											</div>
+										</div>
+										<div class=" field">
+											<label class="is-size-6">Major</label>
+											<div class="control">
+												@if(majors.Count > 0)
+												{
+													@foreach (var major in majors)
+												{
+													if(userEdit.major == major.id)
+													{
+														<input class="input" value="@major.name" readonly>
+													}
+												}
+												}
+												@if (string.IsNullOrEmpty(userEdit.major))
+												{
+													<input class="input" value="" readonly>
+												}
+											</div>
+										</div>
+										<div class=" field">
+											<label class="is-size-6">Rating</label>
+											<div class="control">
+												<input class="input" type="tel" value="@userEdit.level" readonly>
+											</div>
+										</div>
+										<!-- more items here -->
+									</div>
+								</div>
+
+								<div class="column is-three-quarters fixed-grid has-2-cols">
+									<div class="grid">
+										<!-- max 8 items -->
+										<div class="cell field">
+											<label class="background-darkmode-light is-size-6">First Name</label>
+											<div class="control">
+												<input class="input background-darkmode-light" type="text"
+															 value="@userEdit.first_name" readonly>
+											</div>
+										</div>
+										<div class="cell field">
+											<label class="background-darkmode-light is-size-6">Last Name </label>
+											<div class="control">
+												<input class="input background-darkmode-light" type="email"
+															 value="@userEdit.last_name" readonly>
+											</div>
+										</div>
+										<div class="cell field">
+											<label class="background-darkmode-light is-size-6">Phone Number</label>
+											<div class="control">
+												<input class="input background-darkmode-light" type="tel" value="@userEdit.phone_number"
+															 readonly>
+											</div>
+										</div>
+										<div class="cell field">
+											<label class="background-darkmode-light is-size-6">Permanent Address</label>
+											<div class="control">
+												<input class="input background-darkmode-light" type="text"
+															 value="@userEdit.address" readonly>
+											</div>
+										</div>
+										<div class="cell field">
+											<label class="background-darkmode-light is-size-6">
+												Place of Birth /
+												Hometown
+											</label>
+											<div class="control">
+												<input class="input background-darkmode-light" type="text"
+															 value="@userEdit.hometown" readonly>
+											</div>
+										</div>
+										<div class="cell field">
+											<label class="background-darkmode-light is-size-6">
+												Birthday
+											</label>
+											<div class="control">
+												<input class="input background-darkmode-light" type="text"
+															 value="@userEdit.birthday" readonly>
+											</div>
+										</div>
+										<div class="cell field">
+											<label class="background-darkmode-light is-size-6">
+												School
+											</label>
+											<div class="control">
+												<input class="input background-darkmode-light" type="text"
+															 value="@userEdit.school" readonly>
+											</div>
+										</div>
+
+										<div class="cell field">
+											<label class="background-darkmode-light is-size-6">Gender</label>
+											<div class="control">
+												@if (genders.Count > 0)
+												{
+													@foreach (var gender in genders)
+													{
+														if (userEdit.gender == gender.id)
+														{
+															<input class="input background-darkmode-light" value="@gender.name" readonly>
+														}
+													}
+												}
+												@if (userEdit.gender == 0 )
+												{
+													<input class="input background-darkmode-light" value="" readonly>
+												}
+											</div>
+										</div>
+										<div class="cell field">
+											<label class="background-darkmode-light is-size-6">Ethnicity</label>
+											<div class="control">
+												<input class="input background-darkmode-light" type="text" value="@userEdit.ethnicity"
+															 readonly>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- more column here -->
+						</section>
+					</div>
+				</div>
+			</div>
+		}
+
+
 	</main>
 </div>
 @code {
 	[CascadingParameter]
 	public MainLayout Layout { get; set; }
-
+	private UserModel userEdit = new();
+	private List<UserModel> users = new();
+	private List<UserModel> usersTemp = new();
+	private List<StaticModel> listRole = new();
+	private List<MajorModel> majors = new();
+	private List<StaticModel> genders  = new();
 	private bool editInstructor = false;
-
-	private UserModel user = new();
+	private bool confirmDelete = false;
+	private bool userdetail = false;
+	private string tempPassword;
 	private bool checkValidate;
-
 	private string message;
-	private List<UserModel> listUsers = new();
+	private string searchInstructor;
+
 
 	protected override async Task OnInitializedAsync()
 	{
-		listUsers = await DbUser.GetAll();
-		listUsers = listUsers.Where(x => x.role != 0).ToList();
+		genders = new()
+		{
+			new StaticModel
+			{
+				id = 1,
+				name = "Male",
+			},
+			new StaticModel
+			{
+				id = 2,
+				name = "Female",
+			},
+			new StaticModel
+			{
+				id = 3,
+				name = "Other",
+			},
+		};
+		majors = await DbMajor.GetAll();
+		users = await DbUser.GetAll();
+		users = users.Where(x => x.role != 0).ToList();
+		usersTemp = Shared.CloneList(users);
+		listRole = new List<StaticModel>
+		{
+			new StaticModel
+			{
+				id = 1,
+				name = "Administrator",
+			},
+			new StaticModel
+			{
+				id = 2,
+				name = "Instructor",
+			},
+		};
 	}
 	private void ChangerRole(ChangeEventArgs e)
 	{
@@ -251,43 +491,102 @@
 	private async Task<bool> UpdateAccount()
 	{
 		checkValidate = false;
-		if (string.IsNullOrEmpty(user.email))
+		if (string.IsNullOrEmpty(userEdit.email))
 		{
 			message = "Please input Email";
 			return false;
 		}
-		if (string.IsNullOrEmpty(user.first_name))
+		if (string.IsNullOrEmpty(userEdit.first_name))
 		{
 			message = "Please input First Name";
 			return false;
 		}
-		if (string.IsNullOrEmpty(user.last_name))
+		if (string.IsNullOrEmpty(userEdit.last_name))
 		{
 			message = "Please input Last Name";
 			return false;
 		}
-		if (string.IsNullOrEmpty(user.password))
+		if (string.IsNullOrEmpty(userEdit.password))
 		{
 			message = "Please input Password";
 			return false;
 		}
-		if (string.IsNullOrEmpty(user.id))
+		if (string.IsNullOrEmpty(userEdit.id))
 		{
-			await DbUser.Create(user);
+			userEdit.date_create = DateTime.Today.Ticks;
+			await DbUser.Create(userEdit);
 			message = "Create Account Successfull";
-			user = new();
+			userEdit = new();
 			checkValidate = true;
+			editInstructor = false;
 		}
 		else
 		{
-			await DbUser.Update(user);
+			if (tempPassword != userEdit.password)
+			{
+				userEdit.password = Handled.Shared.CreateMD5(userEdit.password);
+			}
+			await DbUser.Update(userEdit);
 			message = "Update Account Successfull";
-			user = new();
+			userEdit = new();
 			checkValidate = true;
+			editInstructor = false;
 		}
 
 		return true;
 	}
 
+	private async void UpdateActive(UserModel user, bool value)
+	{
+		user.active = value;
+		await DbUser.Update(user);
+	}
+
+	private async Task Edit(UserModel model)
+	{
+		editInstructor = true;
+		userEdit = Shared.Clone(model);
+		tempPassword = model.password;
+	}
+
+	private async Task Delete()
+	{
+		await DbUser.Delete(userEdit.id);
+		confirmDelete = false;
+		users.Remove(userEdit);
+	}
+
+	private async void AddInstructor()
+	{
+		editInstructor = true;
+		userEdit = new();
+		userEdit.role = 2;
+		userEdit.active = true;
+		users = await DbUser.GetAll();
+		users = users.Where(x => x.role != 0).ToList();
+		StateHasChanged();
+	}
+
+	private void UserDetail (UserModel model)
+	{
+		userdetail = true;
+		userEdit = model;
+	}
+
+	private void HandleInput(ChangeEventArgs e)
+	{
+		searchInstructor = e.Value.ToString();
+	}
+
+	private void SearchStudent(KeyboardEventArgs e)
+	{
+		if (e.Key == "Enter")
+		{
+			if (string.IsNullOrEmpty(searchInstructor))
+				users = Shared.CloneList(usersTemp);
+			else
+				users = usersTemp.Where(x => x.full_name.ToLower().Contains(searchInstructor)).ToList();
+		}
+	}
 
 }

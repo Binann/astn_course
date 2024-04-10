@@ -1,1118 +1,593 @@
 ﻿@page "/admin-course-overview"
+@inject IWebHostEnvironment WebHostEnvironment
+@inject IJSRuntime JSRuntime
+<div id="db-wrapper">
+	<!-- navbar vertical -->
+	<!-- Sidebar -->
+	<_Sidebar></_Sidebar>
+	<!-- Page Content -->
+	<main id="page-content">
+		@if (Layout.User != null)
+		{
+			<_Header></_Header>
+			@if (!editCourse)
+			{
+				<section class="container-fluid px-4">
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-12">
+							<!-- Page Header -->
+							<div class="border-bottom pb-3 mb-3 d-md-flex align-items-center justify-content-between">
+								<div class="mb-3 mb-md-0">
+									<h1 class="mb-1  title is-light">Courses</h1>
+									<!-- Breadcrumb -->
+									<nav aria-label="breadcrumb">
+										<ol class="breadcrumb">
+											<li class="breadcrumb-item">
+												<a>Courses</a>
+											</li>
+											<li class="breadcrumb-item active" aria-current="page">All</li>
+										</ol>
+									</nav>
+								</div>
+								<div>
+									<a @onclick="OpenForm" class="btn btn-primary">Add New Courses</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-12">
+							<!-- Card -->
+							<div class="card rounded-3">
+								<!-- Card header -->
+								<div class="card-header p-0">
+									<div>
+										<div class="p-4 row">
+											<!-- Form -->
+											<div class="d-flex align-items-center col-12 col-md-12 col-lg-12">
+												<span class="position-absolute ps-3 search-icon"><i class="fe fe-search"></i></span>
+												<input @oninput="HandleInput" @onkeypress="SearchCourse" type="text" class="form-control ps-6" placeholder="Search Course">
+											</div>
+										</div>
+									</div>
+								</div>
 
-    <div id="db-wrapper">
-        <!-- navbar vertical -->
-        <!-- Sidebar -->
-        <_Sidebar></_Sidebar>
-        <!-- Page Content -->
-        <main id="page-content">
-            <_Header></_Header>
-            <!-- Container fluid -->
+								<div class="table-responsive border-0 overflow-y-hidden">
+									<table class="table background-darkmode-dark is-fullwidth is-hoverable">
+										<thead style="  background-color: #1e293b ;">
+											<tr>
 
-            @if(!editCourse){
-              <section class="container-fluid p-4">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-12">
-                        <!-- Page Header -->
-                        <div class="border-bottom pb-3 mb-3 d-md-flex align-items-center justify-content-between">
-                            <div class="mb-3 mb-md-0">
-                                <h1 class="mb-1 h2 fw-bold">Courses</h1>
-                                <!-- Breadcrumb -->
-                                <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item">
-                                            <a href="../dashboard/admin-dashboard.html">Dashboard</a>
-                                        </li>
-                                        <li class="breadcrumb-item">
-                                            <a href="#">Courses</a>
-                                        </li>
-                                        <li class="breadcrumb-item active" aria-current="page">All</li>
-                                    </ol>
-                                </nav>
-                            </div>
-                            <div>
-                                <a @onclick="() => editCourse = true" class="btn btn-primary">Add New Courses</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-12">
-                        <!-- Card -->
-                        <div class="card rounded-3">
-                            <!-- Card header -->
-                            <div class="card-header p-0">
-                                <div>
-                                    <div class="p-4 row">
-                                      <!-- Form -->
-                                      <div class="d-flex align-items-center col-12 col-md-12 col-lg-12">
-                                        <span class="position-absolute ps-3 search-icon"><i class="fe fe-search"></i></span>
-                                        <input type="search" class="form-control ps-6" placeholder="Search Course">
-                                      </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <!-- Table -->
-                                <div class="tab-content" id="tabContent">
-                                    <!--Tab pane -->
-                                    <div class="tab-pane fade show active" id="courses" role="tabpanel"
-                                        aria-labelledby="courses-tab">
-                                        <div class="table-responsive border-0 overflow-y-hidden">
-                                            <table class="table mb-0 text-nowrap table-centered table-hover">
-                                                <thead class="table-light">
-                                                    <tr>
-                                                        <th style="padding-right: 410px;">Courses</th>
-                                                        <th style="padding-right: 100px;">Instructor</th>
-                                                        <th style="padding-right: 50px;">STATUS</th>
-                                                        <th>ACTION</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <a href="#" class="text-inherit">
-                                                                <div class="d-flex align-items-center">
-                                                                    <div>
-                                                                        <img src="../../assets/images/course/course-gatsby.jpg"
-                                                                            alt="" class="img-4by3-lg rounded">
-                                                                    </div>
-                                                                    <div class="ms-3">
-                                                                        <h4 class="mb-1 text-primary-hover">
-                                                                            Revolutionize how you build the web...</h4>
-                                                                        <span>Added on 7 July, 2023</span>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <img src="../../assets/images/avatar/avatar-7.jpg"
-                                                                    alt="" class="rounded-circle avatar-xs me-2">
-                                                                <h5 class="mb-0">Reva Yokk</h5>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <span
-                                                                class="badge-dot bg-warning me-1 d-inline-block align-middle"></span>
-                                                            Pending
-                                                        </td>
-                                                        <td>
-                                                            <a href="#"
-                                                                class="btn btn-outline-secondary btn-sm">Reject</a>
-                                                            <a href="#" class="btn btn-success btn-sm">Approved</a>
-                                                        </td>
-                                                        <td>
-                                                            <span class="dropdown dropstart">
-                                                                <a class="btn-icon btn btn-ghost btn-sm rounded-circle"
-                                                                    href="#" role="button" id="courseDropdown1"
-                                                                    data-bs-toggle="dropdown" data-bs-offset="-20,20"
-                                                                    aria-expanded="false">
-                                                                    <i class="fe fe-more-vertical"></i>
-                                                                </a>
-                                                                <span class="dropdown-menu"
-                                                                    aria-labelledby="courseDropdown1">
-                                                                    <span class="dropdown-header">Settings</span>
-                                                                    <a class="dropdown-item" href="#">
-                                                                        <i
-                                                                            class="fe fe-x-circle dropdown-item-icon"></i>
-                                                                        Reject with Feedback
-                                                                    </a>
-                                                                </span>
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <a href="#" class="text-inherit">
-                                                                <div class="d-flex align-items-center">
-                                                                    <div>
-                                                                        <img src="../../assets/images/course/course-graphql.jpg"
-                                                                            alt="" class="img-4by3-lg rounded">
-                                                                    </div>
-                                                                    <div class="ms-3">
-                                                                        <h4 class="mb-1 text-primary-hover">Guide to
-                                                                            Static Sites with Gatsby...</h4>
-                                                                        <span>Added on 6 July, 2023</span>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <img src="../../assets/images/avatar/avatar-6.jpg"
-                                                                    alt="" class="rounded-circle avatar-xs me-2">
-                                                                <h5 class="mb-0">Brooklyn Simmons</h5>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <span
-                                                                class="badge-dot bg-warning me-1 d-inline-block align-middle"></span>
-                                                            Pending
-                                                        </td>
-                                                        <td>
-                                                            <a href="#"
-                                                                class="btn btn-outline-secondary btn-sm">Reject</a>
-                                                            <a href="#" class="btn btn-success btn-sm">Approved</a>
-                                                        </td>
-                                                        <td>
-                                                            <span class="dropdown dropstart">
-                                                                <a class="btn-icon btn btn-ghost btn-sm rounded-circle"
-                                                                    href="#" role="button" id="courseDropdown2"
-                                                                    data-bs-toggle="dropdown" data-bs-offset="-20,20"
-                                                                    aria-expanded="false">
-                                                                    <i class="fe fe-more-vertical"></i>
-                                                                </a>
-                                                                <span class="dropdown-menu"
-                                                                    aria-labelledby="courseDropdown2">
-                                                                    <span class="dropdown-header">Settings</span>
-                                                                    <a class="dropdown-item" href="#">
-                                                                        <i
-                                                                            class="fe fe-x-circle dropdown-item-icon"></i>
-                                                                        Reject with Feedback
-                                                                    </a>
-                                                                </span>
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <a href="#" class="text-inherit">
-                                                                <div class="d-flex align-items-center">
-                                                                    <div>
-                                                                        <img src="../../assets/images/course/course-html.jpg"
-                                                                            alt="" class="img-4by3-lg rounded">
-                                                                    </div>
-                                                                    <div class="ms-3">
-                                                                        <h4 class="mb-1 text-primary-hover">The Modern
-                                                                            JavaScript Courses ...</h4>
-                                                                        <span>Added on 5 July, 2023</span>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <img src="../../assets/images/avatar/avatar-5.jpg"
-                                                                    alt="" class="rounded-circle avatar-xs me-2">
-                                                                <h5 class="mb-0">Miston Wilson</h5>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <span
-                                                                class="badge-dot bg-warning me-1 d-inline-block align-middle"></span>
-                                                            Pending
-                                                        </td>
-                                                        <td>
-                                                            <a href="#"
-                                                                class="btn btn-outline-secondary btn-sm">Reject</a>
-                                                            <a href="#" class="btn btn-success btn-sm">Approved</a>
-                                                        </td>
-                                                        <td>
-                                                            <span class="dropdown dropstart">
-                                                                <a class="btn-icon btn btn-ghost btn-sm rounded-circle"
-                                                                    href="#" role="button" id="courseDropdown3"
-                                                                    data-bs-toggle="dropdown" data-bs-offset="-20,20"
-                                                                    aria-expanded="false">
-                                                                    <i class="fe fe-more-vertical"></i>
-                                                                </a>
-                                                                <span class="dropdown-menu"
-                                                                    aria-labelledby="courseDropdown3">
-                                                                    <span class="dropdown-header">Settings</span>
-                                                                    <a class="dropdown-item" href="#">
-                                                                        <i
-                                                                            class="fe fe-x-circle dropdown-item-icon"></i>
-                                                                        Reject with Feedback
-                                                                    </a>
-                                                                </span>
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <a href="#" class="text-inherit">
-                                                                <div class="d-flex align-items-center">
-                                                                    <div>
-                                                                        <img src="../../assets/images/course/course-javascript.jpg"
-                                                                            alt="" class="img-4by3-lg rounded">
-                                                                    </div>
-                                                                    <div class="ms-3">
-                                                                        <h4 class="mb-1 text-primary-hover">Courses
-                                                                            JavaScript Heading Title ...</h4>
-                                                                        <span>Added on 5 July, 2023</span>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <img src="../../assets/images/avatar/avatar-10.jpg"
-                                                                    alt="" class="rounded-circle avatar-xs me-2">
-                                                                <h5 class="mb-0">Guy Hawkins</h5>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <span
-                                                                class="badge-dot bg-success me-1 d-inline-block align-middle"></span>
-                                                            Live
-                                                        </td>
-                                                        <td>
-                                                            <a href="#" class="btn btn-secondary btn-sm">Change
-                                                                Status</a>
-                                                        </td>
-                                                        <td>
-                                                            <span class="dropdown dropstart">
-                                                                <a class="btn-icon btn btn-ghost btn-sm rounded-circle"
-                                                                    href="#" role="button" id="courseDropdown4"
-                                                                    data-bs-toggle="dropdown" data-bs-offset="-20,20"
-                                                                    aria-expanded="false">
-                                                                    <i class="fe fe-more-vertical"></i>
-                                                                </a>
-                                                                <span class="dropdown-menu"
-                                                                    aria-labelledby="courseDropdown4">
-                                                                    <span class="dropdown-header">Settings</span>
-                                                                    <a class="dropdown-item" href="#">
-                                                                        <i
-                                                                            class="fe fe-x-circle dropdown-item-icon"></i>
-                                                                        Reject with Feedback
-                                                                    </a>
-                                                                </span>
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <a href="#" class="text-inherit">
-                                                                <div class="d-flex align-items-center">
-                                                                    <div>
-                                                                        <img src="../../assets/images/course/course-node.jpg"
-                                                                            alt="" class="img-4by3-lg rounded">
-                                                                    </div>
-                                                                    <div class="ms-3">
-                                                                        <h4 class="mb-1 text-primary-hover">Get Start
-                                                                            with Node Heading Title ...</h4>
-                                                                        <span>Added on 5 July, 2023</span>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <img src="../../assets/images/avatar/avatar-3.jpg"
-                                                                    alt="" class="rounded-circle avatar-xs me-2">
-                                                                <h5 class="mb-0">Sina Ray</h5>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <span
-                                                                class="badge-dot bg-success me-1 d-inline-block align-middle"></span>
-                                                            Live
-                                                        </td>
-                                                        <td>
-                                                            <a href="#" class="btn btn-secondary btn-sm">Change
-                                                                Status</a>
-                                                        </td>
-                                                        <td>
-                                                            <span class="dropdown dropstart">
-                                                                <a class="btn-icon btn btn-ghost btn-sm rounded-circle"
-                                                                    href="#" role="button" id="courseDropdown5"
-                                                                    data-bs-toggle="dropdown" data-bs-offset="-20,20"
-                                                                    aria-expanded="false">
-                                                                    <i class="fe fe-more-vertical"></i>
-                                                                </a>
-                                                                <span class="dropdown-menu"
-                                                                    aria-labelledby="courseDropdown5">
-                                                                    <span class="dropdown-header">Settings</span>
-                                                                    <a class="dropdown-item" href="#">
-                                                                        <i
-                                                                            class="fe fe-x-circle dropdown-item-icon"></i>
-                                                                        Reject with Feedback
-                                                                    </a>
-                                                                </span>
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <a href="#" class="text-inherit">
-                                                                <div class="d-flex align-items-center">
-                                                                    <div>
-                                                                        <img src="../../assets/images/course/course-laravel.jpg"
-                                                                            alt="" class="img-4by3-lg rounded">
-                                                                    </div>
-                                                                    <div class="ms-3">
-                                                                        <h4 class="mb-1 text-primary-hover">Get Start
-                                                                            with Laravel...</h4>
-                                                                        <span>Added on 5 July, 2023</span>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <img src="../../assets/images/avatar/avatar-9.jpg"
-                                                                    alt="" class="rounded-circle avatar-xs me-2">
-                                                                <h5 class="mb-0">Sobo Rikhan</h5>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <span
-                                                                class="badge-dot bg-success me-1 d-inline-block align-middle"></span>
-                                                            Live
-                                                        </td>
-                                                        <td>
-                                                            <a href="#" class="btn btn-secondary btn-sm">Change
-                                                                Status</a>
-                                                        </td>
-                                                        <td>
-                                                            <span class="dropdown dropstart">
-                                                                <a class="btn-icon btn btn-ghost btn-sm rounded-circle"
-                                                                    href="#" role="button" id="courseDropdown6"
-                                                                    data-bs-toggle="dropdown" data-bs-offset="-20,20"
-                                                                    aria-expanded="false">
-                                                                    <i class="fe fe-more-vertical"></i>
-                                                                </a>
-                                                                <span class="dropdown-menu"
-                                                                    aria-labelledby="courseDropdown6">
-                                                                    <span class="dropdown-header">Settings</span>
-                                                                    <a class="dropdown-item" href="#">
-                                                                        <i
-                                                                            class="fe fe-x-circle dropdown-item-icon"></i>
-                                                                        Reject with Feedback
-                                                                    </a>
-                                                                </span>
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <a href="#" class="text-inherit">
-                                                                <div class="d-flex align-items-center">
-                                                                    <div>
-                                                                        <img src="../../assets/images/course/course-react.jpg"
-                                                                            alt="" class="img-4by3-lg rounded">
-                                                                    </div>
-                                                                    <div class="ms-3">
-                                                                        <h4 class="mb-1 text-primary-hover">Get Start
-                                                                            with React...</h4>
-                                                                        <span>Added on 4 July, 2023</span>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <img src="../../assets/images/avatar/avatar-2.jpg"
-                                                                    alt="" class="rounded-circle avatar-xs me-2">
-                                                                <h5 class="mb-0">April Noms</h5>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <span
-                                                                class="badge-dot bg-success me-1 d-inline-block align-middle"></span>
-                                                            Live
-                                                        </td>
-                                                        <td>
-                                                            <a href="#" class="btn btn-secondary btn-sm">Change
-                                                                Status</a>
-                                                        </td>
-                                                        <td>
-                                                            <span class="dropdown dropstart">
-                                                                <a class="btn-icon btn btn-ghost btn-sm rounded-circle"
-                                                                    href="#" role="button" id="courseDropdown7"
-                                                                    data-bs-toggle="dropdown" data-bs-offset="-20,20"
-                                                                    aria-expanded="false">
-                                                                    <i class="fe fe-more-vertical"></i>
-                                                                </a>
-                                                                <span class="dropdown-menu"
-                                                                    aria-labelledby="courseDropdown7">
-                                                                    <span class="dropdown-header">Settings</span>
-                                                                    <a class="dropdown-item" href="#">
-                                                                        <i
-                                                                            class="fe fe-x-circle dropdown-item-icon"></i>
-                                                                        Reject with Feedback
-                                                                    </a>
-                                                                </span>
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <a href="#" class="text-inherit">
-                                                                <div class="d-flex align-items-center">
-                                                                    <div>
-                                                                        <img src="../../assets/images/course/course-angular.jpg"
-                                                                            alt="" class="img-4by3-lg rounded">
-                                                                    </div>
-                                                                    <div class="ms-3">
-                                                                        <h4 class="mb-1 text-primary-hover">Get Start
-                                                                            with Angular...</h4>
-                                                                        <span>Added on 3 July, 2023</span>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <img src="../../assets/images/avatar/avatar-4.jpg"
-                                                                    alt="" class="rounded-circle avatar-xs me-2">
-                                                                <h5 class="mb-0">Jacob Jones</h5>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <span
-                                                                class="badge-dot bg-warning me-1 d-inline-block align-middle"></span>
-                                                            Pending
-                                                        </td>
-                                                        <td>
-                                                            <a href="#"
-                                                                class="btn btn-outline-secondary btn-sm">Reject</a>
-                                                            <a href="#" class="btn btn-success btn-sm">Approved</a>
-                                                        </td>
-                                                        <td>
-                                                            <span class="dropdown dropstart">
-                                                                <a class="btn-icon btn btn-ghost btn-sm rounded-circle"
-                                                                    href="#" role="button" id="courseDropdown8"
-                                                                    data-bs-toggle="dropdown" data-bs-offset="-20,20"
-                                                                    aria-expanded="false">
-                                                                    <i class="fe fe-more-vertical"></i>
-                                                                </a>
-                                                                <span class="dropdown-menu"
-                                                                    aria-labelledby="courseDropdown8">
-                                                                    <span class="dropdown-header">Settings</span>
-                                                                    <a class="dropdown-item" href="#">
-                                                                        <i
-                                                                            class="fe fe-x-circle dropdown-item-icon"></i>
-                                                                        Reject with Feedback
-                                                                    </a>
-                                                                </span>
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <!--Tab pane -->
-                                    <div class="tab-pane fade" id="approved" role="tabpanel"
-                                        aria-labelledby="approved-tab">
-                                        <div class="table-responsive border-0 overflow-y-hidden">
-                                            <table class="table mb-0 text-nowrap table-centered table-hover">
-                                                <thead class="table-light">
-                                                    <tr>
-                                                        <th>Courses</th>
-                                                        <th>Instructor</th>
-                                                        <th>STATUS</th>
-                                                        <th>ACTION</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <a href="#" class="text-inherit">
-                                                                <div class="d-flex align-items-center">
-                                                                    <div>
-                                                                        <img src="../../assets/images/course/course-javascript.jpg"
-                                                                            alt="" class="img-4by3-lg rounded">
-                                                                    </div>
-                                                                    <div class="ms-3">
-                                                                        <h4 class="mb-1 text-primary-hover">Courses
-                                                                            JavaScript Heading Title ...</h4>
-                                                                        <span>Added on 5 July, 2023</span>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <img src="../../assets/images/avatar/avatar-10.jpg"
-                                                                    alt="" class="rounded-circle avatar-xs me-2">
-                                                                <h5 class="mb-0">Guy Hawkins</h5>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <span
-                                                                class="badge-dot bg-success me-1 d-inline-block align-middle"></span>
-                                                            Live
-                                                        </td>
-                                                        <td>
-                                                            <a href="#" class="btn btn-secondary btn-sm">Change
-                                                                Status</a>
-                                                        </td>
-                                                        <td>
-                                                            <span class="dropdown dropstart">
-                                                                <a class="btn-icon btn btn-ghost btn-sm rounded-circle"
-                                                                    href="#" role="button" id="courseDropdown9"
-                                                                    data-bs-toggle="dropdown" data-bs-offset="-20,20"
-                                                                    aria-expanded="false">
-                                                                    <i class="fe fe-more-vertical"></i>
-                                                                </a>
-                                                                <span class="dropdown-menu"
-                                                                    aria-labelledby="courseDropdown9">
-                                                                    <span class="dropdown-header">Settings</span>
-                                                                    <a class="dropdown-item" href="#">
-                                                                        <i
-                                                                            class="fe fe-x-circle dropdown-item-icon"></i>
-                                                                        Reject with Feedback
-                                                                    </a>
-                                                                </span>
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <a href="#" class="text-inherit">
-                                                                <div class="d-flex align-items-center">
-                                                                    <div>
-                                                                        <img src="../../assets/images/course/course-node.jpg"
-                                                                            alt="" class="img-4by3-lg rounded">
-                                                                    </div>
-                                                                    <div class="ms-3">
-                                                                        <h4 class="mb-1 text-primary-hover">Get Start
-                                                                            with Node Heading Title ...</h4>
-                                                                        <span>Added on 5 July, 2023</span>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <img src="../../assets/images/avatar/avatar-1.jpg"
-                                                                    alt="" class="rounded-circle avatar-xs me-2">
-                                                                <h5 class="mb-0">Liston Zebon</h5>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <span
-                                                                class="badge-dot bg-success me-1 d-inline-block align-middle"></span>
-                                                            Live
-                                                        </td>
-                                                        <td>
-                                                            <a href="#" class="btn btn-secondary btn-sm">Change
-                                                                Status</a>
-                                                        </td>
-                                                        <td>
-                                                            <span class="dropdown dropstart">
-                                                                <a class="btn-icon btn btn-ghost btn-sm rounded-circle"
-                                                                    href="#" role="button" id="courseDropdown10"
-                                                                    data-bs-toggle="dropdown" data-bs-offset="-20,20"
-                                                                    aria-expanded="false">
-                                                                    <i class="fe fe-more-vertical"></i>
-                                                                </a>
-                                                                <span class="dropdown-menu"
-                                                                    aria-labelledby="courseDropdown10">
-                                                                    <span class="dropdown-header">Settings</span>
-                                                                    <a class="dropdown-item" href="#">
-                                                                        <i
-                                                                            class="fe fe-x-circle dropdown-item-icon"></i>
-                                                                        Reject with Feedback
-                                                                    </a>
-                                                                </span>
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <a href="#" class="text-inherit">
-                                                                <div class="d-flex align-items-center">
-                                                                    <div>
-                                                                        <img src="../../assets/images/course/course-laravel.jpg"
-                                                                            alt="" class="img-4by3-lg rounded">
-                                                                    </div>
-                                                                    <div class="ms-3">
-                                                                        <h4 class="mb-1 text-primary-hover">Get Start
-                                                                            with Laravel...</h4>
-                                                                        <span>Added on 5 July, 2023</span>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <img src="../../assets/images/avatar/avatar-4.jpg"
-                                                                    alt="" class="rounded-circle avatar-xs me-2">
-                                                                <h5 class="mb-0">Jacob Jones</h5>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <span
-                                                                class="badge-dot bg-success me-1 d-inline-block align-middle"></span>
-                                                            Live
-                                                        </td>
-                                                        <td>
-                                                            <a href="#" class="btn btn-secondary btn-sm">Change
-                                                                Status</a>
-                                                        </td>
-                                                        <td>
-                                                            <span class="dropdown dropstart">
-                                                                <a class="btn-icon btn btn-ghost btn-sm rounded-circle"
-                                                                    href="#" role="button" id="courseDropdown11"
-                                                                    data-bs-toggle="dropdown" data-bs-offset="-20,20"
-                                                                    aria-expanded="false">
-                                                                    <i class="fe fe-more-vertical"></i>
-                                                                </a>
-                                                                <span class="dropdown-menu"
-                                                                    aria-labelledby="courseDropdown11">
-                                                                    <span class="dropdown-header">Settings</span>
-                                                                    <a class="dropdown-item" href="#">
-                                                                        <i
-                                                                            class="fe fe-x-circle dropdown-item-icon"></i>
-                                                                        Reject with Feedback
-                                                                    </a>
-                                                                </span>
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <a href="#" class="text-inherit">
-                                                                <div class="d-flex align-items-center">
-                                                                    <div>
-                                                                        <img src="../../assets/images/course/course-react.jpg"
-                                                                            alt="" class="img-4by3-lg rounded">
-                                                                    </div>
-                                                                    <div class="ms-3">
-                                                                        <h4 class="mb-1 text-primary-hover">Get Start
-                                                                            with React...</h4>
-                                                                        <span>Added on 4 July, 2023</span>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <img src="../../assets/images/avatar/avatar-6.jpg"
-                                                                    alt="" class="rounded-circle avatar-xs me-2">
-                                                                <h5 class="mb-0">Reema Messlemn</h5>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <span
-                                                                class="badge-dot bg-success me-1 d-inline-block align-middle"></span>
-                                                            Live
-                                                        </td>
-                                                        <td>
-                                                            <a href="#" class="btn btn-secondary btn-sm">Change
-                                                                Status</a>
-                                                        </td>
-                                                        <td>
-                                                            <span class="dropdown dropstart">
-                                                                <a class="btn-icon btn btn-ghost btn-sm rounded-circle"
-                                                                    href="#" role="button" id="courseDropdown12"
-                                                                    data-bs-toggle="dropdown" data-bs-offset="-20,20"
-                                                                    aria-expanded="false">
-                                                                    <i class="fe fe-more-vertical"></i>
-                                                                </a>
-                                                                <span class="dropdown-menu"
-                                                                    aria-labelledby="courseDropdown12">
-                                                                    <span class="dropdown-header">Settings</span>
-                                                                    <a class="dropdown-item" href="#">
-                                                                        <i
-                                                                            class="fe fe-x-circle dropdown-item-icon"></i>
-                                                                        Reject with Feedback
-                                                                    </a>
-                                                                </span>
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <!--Tab pane -->
-                                    <div class="tab-pane fade" id="pending" role="tabpanel"
-                                        aria-labelledby="pending-tab">
-                                        <div class="table-responsive border-0 overflow-y-hidden">
-                                            <table class="table mb-0 text-nowrap table-centered table-hover">
-                                                <thead class="table-light">
-                                                    <tr>
-                                                        <th>Courses</th>
-                                                        <th>Instructor</th>
-                                                        <th>STATUS</th>
-                                                        <th>ACTION</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <a href="#" class="text-inherit">
-                                                                <div class="d-flex align-items-center">
-                                                                    <div>
-                                                                        <img src="../../assets/images/course/course-gatsby.jpg"
-                                                                            alt="" class="img-4by3-lg rounded">
-                                                                    </div>
-                                                                    <div class="ms-3">
-                                                                        <h4 class="mb-1 text-primary-hover">
-                                                                            Revolutionize how you build the web...</h4>
-                                                                        <span>Added on 7 July, 2023</span>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <img src="../../assets/images/avatar/avatar-7.jpg"
-                                                                    alt="" class="rounded-circle avatar-xs me-2">
-                                                                <h5 class="mb-0">Reva Yokk</h5>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <span
-                                                                class="badge-dot bg-warning me-1 d-inline-block align-middle"></span>
-                                                            Pending
-                                                        </td>
-                                                        <td>
-                                                            <a href="#"
-                                                                class="btn btn-outline-secondary btn-sm">Reject</a>
-                                                            <a href="#" class="btn btn-success btn-sm">Approved</a>
-                                                        </td>
-                                                        <td>
-                                                            <span class="dropdown dropstart">
-                                                                <a class="btn-icon btn btn-ghost btn-sm rounded-circle"
-                                                                    href="#" role="button" id="courseDropdown13"
-                                                                    data-bs-toggle="dropdown" data-bs-offset="-20,20"
-                                                                    aria-expanded="false">
-                                                                    <i class="fe fe-more-vertical"></i>
-                                                                </a>
-                                                                <span class="dropdown-menu"
-                                                                    aria-labelledby="courseDropdown13">
-                                                                    <span class="dropdown-header">Settings</span>
-                                                                    <a class="dropdown-item" href="#">
-                                                                        <i
-                                                                            class="fe fe-x-circle dropdown-item-icon"></i>
-                                                                        Reject with Feedback
-                                                                    </a>
-                                                                </span>
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <a href="#" class="text-inherit">
-                                                                <div class="d-flex align-items-center">
-                                                                    <div>
-                                                                        <img src="../../assets/images/course/course-graphql.jpg"
-                                                                            alt="" class="img-4by3-lg rounded">
-                                                                    </div>
-                                                                    <div class="ms-3">
-                                                                        <h4 class="mb-1 text-primary-hover">Guide to
-                                                                            Static Sites with Gatsby...</h4>
-                                                                        <span>Added on 6 July, 2023</span>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <img src="../../assets/images/avatar/avatar-6.jpg"
-                                                                    alt="" class="rounded-circle avatar-xs me-2">
-                                                                <h5 class="mb-0">Brooklyn Simmons</h5>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <span
-                                                                class="badge-dot bg-warning me-1 d-inline-block align-middle"></span>
-                                                            Pending
-                                                        </td>
-                                                        <td>
-                                                            <a href="#"
-                                                                class="btn btn-outline-secondary btn-sm">Reject</a>
-                                                            <a href="#" class="btn btn-success btn-sm">Approved</a>
-                                                        </td>
-                                                        <td>
-                                                            <span class="dropdown dropstart">
-                                                                <a class="btn-icon btn btn-ghost btn-sm rounded-circle"
-                                                                    href="#" role="button" id="courseDropdown14"
-                                                                    data-bs-toggle="dropdown" data-bs-offset="-20,20"
-                                                                    aria-expanded="false">
-                                                                    <i class="fe fe-more-vertical"></i>
-                                                                </a>
-                                                                <span class="dropdown-menu"
-                                                                    aria-labelledby="courseDropdown14">
-                                                                    <span class="dropdown-header">Settings</span>
-                                                                    <a class="dropdown-item" href="#">
-                                                                        <i
-                                                                            class="fe fe-x-circle dropdown-item-icon"></i>
-                                                                        Reject with Feedback
-                                                                    </a>
-                                                                </span>
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <a href="#" class="text-inherit">
-                                                                <div class="d-flex align-items-center">
-                                                                    <div>
-                                                                        <img src="../../assets/images/course/course-html.jpg"
-                                                                            alt="" class="img-4by3-lg rounded">
-                                                                    </div>
-                                                                    <div class="ms-3">
-                                                                        <h4 class="mb-1 text-primary-hover">The Modern
-                                                                            JavaScript Courses ...</h4>
-                                                                        <span>Added on 5 July, 2023</span>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <img src="../../assets/images/avatar/avatar-3.jpg"
-                                                                    alt="" class="rounded-circle avatar-xs me-2">
-                                                                <h5 class="mb-0">Jenny Wilson</h5>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <span
-                                                                class="badge-dot bg-warning me-1 d-inline-block align-middle"></span>
-                                                            Pending
-                                                        </td>
-                                                        <td>
-                                                            <a href="#"
-                                                                class="btn btn-outline-secondary btn-sm">Reject</a>
-                                                            <a href="#" class="btn btn-success btn-sm">Approved</a>
-                                                        </td>
-                                                        <td>
-                                                            <span class="dropdown dropstart">
-                                                                <a class="btn-icon btn btn-ghost btn-sm rounded-circle"
-                                                                    href="#" role="button" id="courseDropdown15"
-                                                                    data-bs-toggle="dropdown" data-bs-offset="-20,20"
-                                                                    aria-expanded="false">
-                                                                    <i class="fe fe-more-vertical"></i>
-                                                                </a>
-                                                                <span class="dropdown-menu"
-                                                                    aria-labelledby="courseDropdown15">
-                                                                    <span class="dropdown-header">Settings</span>
-                                                                    <a class="dropdown-item" href="#">
-                                                                        <i
-                                                                            class="fe fe-x-circle dropdown-item-icon"></i>
-                                                                        Reject with Feedback
-                                                                    </a>
-                                                                </span>
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <a href="#" class="text-inherit">
-                                                                <div class="d-flex align-items-center">
-                                                                    <div>
-                                                                        <img src="../../assets/images/course/course-angular.jpg"
-                                                                            alt="" class="img-4by3-lg rounded">
-                                                                    </div>
-                                                                    <div class="ms-3">
-                                                                        <h4 class="mb-1 text-primary-hover">Get Start
-                                                                            with Angular...</h4>
-                                                                        <span>Added on 3 July, 2023</span>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <img src="../../assets/images/avatar/avatar-4.jpg"
-                                                                    alt="" class="rounded-circle avatar-xs me-2">
-                                                                <h5 class="mb-0">Jacob Jones</h5>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <span
-                                                                class="badge-dot bg-warning me-1 d-inline-block align-middle"></span>
-                                                            Pending
-                                                        </td>
-                                                        <td>
-                                                            <a href="#"
-                                                                class="btn btn-outline-secondary btn-sm">Reject</a>
-                                                            <a href="#" class="btn btn-success btn-sm">Approved</a>
-                                                        </td>
-                                                        <td>
-                                                            <span class="dropdown dropstart">
-                                                                <a class="btn-icon btn btn-ghost btn-sm rounded-circle"
-                                                                    href="#" role="button" id="courseDropdown16"
-                                                                    data-bs-toggle="dropdown" data-bs-offset="-20,20"
-                                                                    aria-expanded="false">
-                                                                    <i class="fe fe-more-vertical"></i>
-                                                                </a>
-                                                                <span class="dropdown-menu"
-                                                                    aria-labelledby="courseDropdown16">
-                                                                    <span class="dropdown-header">Settings</span>
-                                                                    <a class="dropdown-item" href="#">
-                                                                        <i
-                                                                            class="fe fe-x-circle dropdown-item-icon"></i>
-                                                                        Reject with Feedback
-                                                                    </a>
-                                                                </span>
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Card Footer -->
-                        </div>
-                    </div>
-                </div>
-            </section>
-            }
-            else{
-              <div class="has-text-dark " data-theme="dark">
-                <section class="section">
-                  <div class="container">
-                    <div class="columns">
-                      <div class="column is-offset-1 is-10">
-                        <div class="columns is-vcentered is-justify-content-space-between">
-                          <!-- Content -->
-                          <div class="mb-lg-0 pb-4 pt-4">
-                            <h1 class="title is-light">Add New Course</h1>
-                          </div>
-                          <div class="buttons">
-                            <a @onclick="() => editCourse = false" class="button">Back to Course</a>
-                            <a href="" class="button is-dark">Save</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-                <!-- Page Content -->
-                <section class="section">
-                  <div class="container">
-                    <div class="columns is-centered">
-                      <div class="column is-10">
-                        <!-- Stepper content -->
-                        <div class="mt-5">
-                          <div class="tab-content">
-                            <!-- Content one -->
-                            <div class="content ">
-                              <!-- Card -->
-                              <div class="card py-2">
-                                <header class="card-header px-4 py-3 background-darkmode-dark">
-                                  <p class="card-header-title mb-0">Basic Information</p>
-                                </header>
-                                <!-- Card body -->
-                                <div class="card-content background-darkmode-dark has-text-light">
-                                  <div class="field">
-                                    <label for="courseTitle" class="label">Course Title</label>
-                                    <div class="control">
-                                      <input @bind="course.name" id="courseTitle" class="input" type="text"
-                                             placeholder="Course Title " />
-                                    </div>
-                                  </div>
-                                  <div class="field">
-                                    <label class="label">Courses category</label>
-                                    <div class="control">
-                                      <div class="select">
-                                        <select @onchange="ChangeCategory">
-                                          <option value="">Select category</option>
-                                          @foreach (var category in categories)
-                                          {
-                                            <option value="@category.id">@category.name</option>
-                                          }
-                                        </select>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="field">
-                                    <label class="label">Courses level</label>
-                                    <div class="control">
-                                      <div class="select">
-                                        <select>
-                                          <option value="">Select level</option>
-                                          <option value="intermediate">Intermediate</option>
-                                          <option value="Beignners">Beignners</option>
-                                          <option value="Advance">Advance</option>
-                                        </select>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="field">
-                                    <label class="label">Course Description</label>
-                                    <div class="field">
-                                      <div class="control">
-                                        <textarea id="courseTitle" style="height: 100px" class="input" type="text"
-                                                  placeholder="Course Description " />
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <!-- Content two -->
-                            <div class="content "
-                                 aria-labelledby="courseFormtrigger2">
-                              <!-- Card -->
-                              <div class="card">
-                                <header class="card-header px-4 py-3 background-darkmode-dark">
-                                  <p class="card-header-title mb-0">Courses Media</p>
-                                </header>
-                                <!-- Card body -->
-                                <div class="card-content background-darkmode-dark has-text-light" style="min-height: 100px; max-height: 1000px;">
-                                  <div class="container">
-                                    <div class="file has-name">
-                                      <label class="file-label is-justify-content-center is-align-items-center">
-                                        <input class="file-input js-form-upload-control" type="file"
-                                               name="upload" id="upload" multiple>
-                                        <span class="file-cta">
-                                          <span class="file-icon">
-                                            <i class="fas fa-upload"></i>
-                                          </span>
-                                          <span class="file-label">
-                                            Upload
-                                          </span>
-                                        </span>
-                                        <button class="file-name has-text-centered">Clear</button>
-                                        <span class="ml-2" id="file-name">
-                                          No file uploaded
-                                        </span>
-                                      </label>
-                                    </div>
-                                    <img id="preview" class="m-2" src="" alt="Image preview"
-                                         style="display: none;">
+												<th width="30%">Courses</th>
+												<th width="20%">Description</th>
+												<th width="20%">Instructor</th>
+												<th width="5%">Active</th>
+												<th width="15%">Handle</th>
+											</tr>
+										</thead>
+										<tbody>
+											@foreach (var course in courses)
+											{
+												<tr @onclick="() => ShowInfor(course)">
+													<td>
+														<a class="text-inherit">
+															<div class="is-flex is-align-items-center">
+																<div>
+																	<img src="./assets/images/upload/@course.image"
+																			 alt="" class="img-4by3-lg rounded">
+																</div>
+																<div class="ms-3">
+																	<h4 class="mb-1 text-primary-hover text_course">
+																		<a href="/admin-course-detail/@course.id" class="text-primary-hover has-text-white">
+																			@course.name
+																		</a>
+																	</h4>
+																</div>
+															</div>
+														</a>
+													</td>
+													<td>
+														<div class="d-flex align-items-center text_description ">
+															<p class="mb-0 text_course">@course.description</p>
+														</div>
+													</td>
+													<td>
+														<div class="">
+															@{
+																var instructor = instructors.FirstOrDefault(x => x.id == course.instructor);
+															}
+															<p class="mb-0">@instructor.full_name</p>
+														</div>
+													</td>
+													<td>
+														@if (course.active)
+														{
+															<a class="has-text-success">
+																<i class="fa-solid fa-toggle-on"></i>
+															</a>
+														}
+														else
+														{
+															<a class="has-text-grey">
+																<i class="fa-solid fa-toggle-off"></i>
+															</a>
+														}
+													</td>
+													<td>
+														<span class="icon-text">
+															@if (course.instructor == Layout.User.id || course.creator == Layout.User.id)
+															{
+																<a class="has-text-link" @onclick="() => EditCours(course)">
+																	<span class="icon">
+																		<i class="fa-solid fa-pen"></i>
+																	</span>
+																</a>
+															}
+															@* <a class="has-text-danger" >
+												<span class="icon">
+												<i class="fa-solid fa-trash"></i>
+												</span>
+												</a> *@
+														</span>
+													</td>
+												</tr>
+											}
+										</tbody>
+									</table>
+								</div>
 
-                                  </div>
-                                </div>
-                              </div>
-                              <!-- Button -->
-                            </div>
-                            <!-- COntent three -->
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </section>
+								<!-- Card Footer -->
+							</div>
+						</div>
+					</div>
+				</section>
+			}
+			else
+			{
+				<div class="has-text-dark " data-theme="dark">
+					<section class="section">
+						<div class="container">
+							<div class="columns">
+								<div class="column is-offset-1 is-10">
+									<div class="columns is-vcentered is-justify-content-space-between">
+										<!-- Content -->
+										<div class="mb-lg-0 ">
+											<h3 class="title is-light">@(courseEdit.id != null ? "Edit Course" : "Add New Course")</h3>
+										</div>
+										<div class="buttons">
+											<a @onclick="BackToCourse" class="button">Back to Course</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+					<!-- Page Content -->
+					<section class="section">
+						<div class="container">
+							<div class="columns is-centered">
+								<div class="column is-10 p-0">
+									<!-- Stepper content -->
+									<div class="">
+										<div class="tab-content">
+											<!-- Content one -->
+											<div class="content ">
+												<!-- Card -->
+												<div class="card p-0">
+													<!-- Card body -->
+													<div class="card-content background-darkmode-dark has-text-light">
+														<div class="field">
+															<label for="courseTitle" class="label">Course Title</label>
+															<div class="control">
+																<input @bind="courseEdit.name" id="courseTitle" class="input" type="text"
+																			 placeholder="Course Title " />
+															</div>
+														</div>
+														<div class="field">
+															<label class="label">Major</label>
+															<div class="control">
+																<div class="select">
+																	<select @onchange="ChangeMajor">
+																		<option value="">Select Major</option>
+																		@foreach (var major in majors)
+																		{
+																			<option value="@major.id">@major.name</option>
+																		}
+																	</select>
+																</div>
+															</div>
+														</div>
+														<div class="field">
+															<label class="label">Courses level</label>
+															<div class="control">
+																<div class="select">
+																	<select @onchange="ChangeLevel">
+																		<option value="">Select level</option>
+																		@foreach(var item in levels)
+																		{
+																			<option value=@item.id>@item.name</option>
+																		}
+																	</select>
+																</div>
+															</div>
+														</div>
+														<div class="field">
+															<label class="label">Instructor</label>
+															<div class="control">
+																<div class="select">
+																	<select @onchange="ChangeInstructor">
+																		<option value="">Select Instructor</option>
+																		@foreach (var item in instructors)
+																		{
+																			<option value=@item.id>@item.full_name</option>
+																		}
+																	</select>
+																</div>
+															</div>
+														</div>
+														<div class="field">
+															<label class="label">Course Description</label>
+															<div class="field">
+																<div class="control">
+																	<textarea @bind="courseEdit.description" id="courseTitle" style="height: 100px" class="input" type="text"
+																						placeholder="Course Description " />
+																</div>
+															</div>
+														</div>
+														<div class="field">
+															<label for="courseTitle" class="label">Key To Join Course</label>
+															<div class="control">
+																<input @bind="courseEdit.key" id="courseTitle" class="input" type="text"
+																			 placeholder=" " />
+															</div>
+														</div>
+														<div class="field">
+															<label class="label">Image</label>
+															<div class="field">
+																<div class="control">
+																	<div class="mb-4">
+																		<img src="./assets/images/upload/@courseEdit.image"
+																					alt="" class="img-4by3-lg rounded">
+																	</div>	
+																	<InputFile class="" OnChange="HandleFileSelected" multiple />
+																</div>
+															</div>
+														</div>
+														<div class="field">
+															<div class="field">
+																<div class="control pt-2">
+																	@if (!string.IsNullOrEmpty(error))
+																	{
+																		<p class="has-text-danger">@error</p>
+																	}
 
-            </div>
-            }
-        </main>
-    </div>
+																	@if (!string.IsNullOrEmpty(message))
+																	{
+																		<p class="has-text-success">@message</p>
+																	}
+																	<a @onclick="UpdateCourse" type="submit" class="btn btn-primary" for="category_form">@(courseEdit.id != null ? "Update Course" : "Add New Course")</a>
+																</div>
+															</div>
+														</div>
+
+													</div>
+												</div>
+											</div>
+											<!-- Content two -->
+											<!-- COntent three -->
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+				</div>
+			}
+		}		
+		<!-- Container fluid -->
+	</main>
+
+	@if (showInfor && editCourse == false)
+	{
+		<div id="courseDetail-modal" class="modal is-active" style="font-weight: 500; font-size: 1.25rem;">
+			<div class="modal-background"></div>
+			<div class="modal-content" style="width: 90%;height: 78%; overflow: hidden;border-radius: 6px;">
+				<div class="" style="width: 100%; height: 100%; overflow:hidden;">
+					<section class="section background-darkmode-light"
+									 style="width: 100%; height: 100%; overflow-y: scroll;">
+						<h1 class="title is-5 primary-color">@courseEdit.name</h1>
+						<div class="columns" style="width: 100%;">
+							<div class="column box-shadow background-darkmode-dark" style="border-radius: 6px;">
+								<div class="">
+									<div class="is-flex is-justify-content-center mb-4">
+										<div class="card-image">
+											<figure class="image">
+												<img id="imgClickAndChange" style="border-radius: 6px;"
+														 src="./assets/images/upload/@courseEdit.image" alt="course">
+												<input type="file" id="fileInput" style="display: none;">
+											</figure>
+										</div>
+									</div>
+
+									<div class="field">
+										<label class="is-size-6">Course Duration</label>
+										<div class="control">
+											<input class="input" type="text" value="30 hours" readonly>
+										</div>
+									</div>
+									<div class="field">
+										<label class="is-size-6">Number of Lessons</label>
+										<div class="control">
+											<input class="input" type="number" value="@courseEdit.lesson.Count" readonly>
+										</div>
+									</div>
+									<div class="field">
+										<label class="is-size-6">Number of Learners</label>
+										<div class="control">
+											<input class="input" type="number" value="@courseEdit.members.Count" readonly>
+										</div>
+									</div>
+									<!-- more items here -->
+								</div>
+							</div>
+
+							<div class="column is-three-quarters fixed-grid has-2-cols has-1-cols-mobile">
+								<div class="grid has-1-cols-mobile">
+									<div class="cell field m-0">
+										<label class="background-darkmode-light is-size-6 pb-2">Instructor</label>
+										@{
+											var instructor = instructors.FirstOrDefault(x => x.id == courseEdit.instructor);
+										}
+										<div class="media ">
+											<figure class="media-left">
+												<p class="image is-32x32">
+													<img src="../../assets/images/avatar/Firefly person avatar, realistic female1.jpg"
+															 alt="" class="is-rounded">
+												</p>
+											</figure>
+											<div class="media-content  pt-2">
+												<p class="title is-6">@instructor.full_name</p>
+											</div>
+										</div>
+									</div>
+									<div class="cell field m-0">
+										<label class="background-darkmode-light is-size-6 pb-2">Creator</label>
+										@{
+											var creator = users.FirstOrDefault(x => x.id == courseEdit.creator);
+										}
+										<div class="media ">
+											<figure class="media-left">
+												<p class="image is-32x32">
+													<img src="../../assets/images/avatar/Firefly person avatar, realistic female1.jpg"
+															 alt="" class="is-rounded">
+												</p>
+											</figure>
+											<div class="media-content">
+												<p class="title is-6 pt-2 ">@creator.full_name</p>
+											</div>
+										</div>
+									</div>
+									<div class="cell field">
+										<label class="background-darkmode-light is-size-6">Date Created</label>
+										<div class="control">
+											<input class="input background-darkmode-light" type="text" value="@(new DateTime(courseEdit.date_create).ToString("dd/MM/yyyy"))" readonly>
+										</div>
+									</div>
+									<div class="cell field">
+										<label class="background-darkmode-light is-size-6">Level</label>
+										<div class="control">
+											@{
+												var level = levels.FirstOrDefault(x => x.id == courseEdit.level);
+											}
+											<input class="input background-darkmode-light" type="text" value="@level.name"
+														 readonly>
+										</div>
+									</div>
+									<div class="cell is-col-span-2-widescreen field">
+										<div class="control">
+											<textarea class="textarea background-darkmode-light" value="@courseEdit.description"
+																 readonly></textarea>
+										</div>
+									</div>
+									<!-- functional button-->
+
+								</div>
+								<div class="field is-flex is-justify-content-flex-end">
+									<div class="control">
+										<a @onclick="() => showInfor = false" class="button  is-danger">Close</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+	}
+
+</div>
 
 @code {
-  [CascadingParameter]
-  public MainLayout Layout { get; set; }
-  private CourseModel course = new();
-  private List<CategoryModel> categories = new();
-  private bool editCourse = false;
+	[CascadingParameter]
+	public MainLayout Layout { get; set; }
+	private CourseModel courseEdit = new();
+	private bool editCourse = false;
+	private List<MajorModel> majors = new();
+	private string message;
+	private string error;
+	private List<UserModel> instructors = new();
+	private List<UserModel> users = new();
+	private List<CourseModel> courses = new();
+	private List<CourseModel> coursesTemp = new();
+	private List<StaticModel> levels = new();
+	private string searchCourse;
+	private string fileName;
+	private bool showInfor;
+	private string filePath;
+	private IBrowserFile file;
 
-  protected override async Task OnInitializedAsync()
-  {
-    categories = await DbCategory.GetAll();
-  }
+	protected override async Task OnInitializedAsync()
+	{
+		showInfor = false;
+		courses = await DbCourse.GetAll();
+		coursesTemp = Shared.CloneList(courses);
+		Console.WriteLine(courses.Count);
+		users = await DbUser.GetAll();
+		instructors = users.Where(x => x.role == 2).ToList();
+		levels = Service.ModuleService.ListLevel();
+		majors = await DbMajor.GetAll();
+	}
 
-  private bool Validate()
-  {
-    return false;
-  }
 
-  private void ChangeCategory(ChangeEventArgs e)
-  {
-    course.category_id = e.ToString();
-  }
+	private void OpenForm()
+	{
+		error = null;
+		message = null;
+		courseEdit = new();
+		editCourse = true;
+		fileName = courseEdit.image;
+	}
+
+	private void ShowInfor(CourseModel model)
+	{
+		courseEdit = Shared.Clone(model);
+		showInfor = true;
+	}
+	private void EditCours(CourseModel course)
+	{
+		message = null;
+		editCourse = true;
+		courseEdit = Shared.Clone(course);
+	}
+	private async void ChangeMajor(ChangeEventArgs e)
+	{
+		courseEdit.major_id = e.Value.ToString(); 
+	}
+
+	private async void ChangeLevel(ChangeEventArgs e)
+	{
+		courseEdit.level = Convert.ToInt32(e.Value.ToString());
+	}
+
+	private async void ChangeInstructor(ChangeEventArgs e)
+	{
+		courseEdit.instructor = e.Value.ToString();
+	}
+
+	private async Task<bool> UpdateCourse()
+	{
+		error = null;
+		message = null;
+		if (string.IsNullOrEmpty(courseEdit.name))
+		{
+			error = "Please input name for course";
+			return false;
+		}
+		Console.WriteLine(courseEdit.major_id);
+		if (string.IsNullOrEmpty(courseEdit.major_id))
+		{
+			error = "Please choose major for course";
+			return false;
+		}
+		if (courseEdit.level == 0)
+		{
+			error = "Please choose level for course";
+			return false;
+		}
+		if (string.IsNullOrEmpty(courseEdit.image))
+		{
+			error = "Please choose picture for course";
+			return false;
+		}
+		if (string.IsNullOrEmpty(courseEdit.instructor))
+		{
+			error = "Please choose instructor for course";
+			return false;
+		}
+
+		if (string.IsNullOrEmpty(courseEdit.key))
+		{
+			error = "Please input key for course";
+			return false;
+		}
+
+		if (string.IsNullOrEmpty(courseEdit.id))
+		{
+			@if (!string.IsNullOrEmpty(filePath))
+			{
+				using (var fileStream = new FileStream(filePath, FileMode.Create))
+				{
+					await file.OpenReadStream(maxFileSize).CopyToAsync(fileStream);
+				}
+			}
+			courseEdit.date_create = DateTime.Today.Ticks;
+			courseEdit.creator = Layout.User.id;
+			courseEdit.active = true;
+			message = "Create Successful";
+			await DbCourse.Create(courseEdit);
+			courses = await DbCourse.GetAll();
+		}
+		else
+		{
+			@if (!string.IsNullOrEmpty(filePath))
+			{
+				using (var fileStream = new FileStream(filePath, FileMode.Create))
+				{
+					await file.OpenReadStream(maxFileSize).CopyToAsync(fileStream);
+				}
+			}
+			message = "Update Successful";
+			await DbCourse.Update(courseEdit);
+			courses = await DbCourse.GetAll();
+		}
+		return true;
+	}
+
+	private void BackToCourse()
+	{
+		editCourse = false;
+		showInfor = false;
+	}
+
+	private long maxFileSize = 1024 * 2048;
+	private async Task HandleFileSelected(InputFileChangeEventArgs e)
+	{
+		file = e.File;
+
+		// Kiểm tra xem có file được chọn không
+		if (file != null)
+		{
+			// Tạo đường dẫn đến thư mục upload
+			var uploadFolder = Path.Combine(WebHostEnvironment.WebRootPath, "assets", "images", "upload");
+
+			// Tạo thư mục upload nếu chưa tồn tại
+			if (!Directory.Exists(uploadFolder))
+			{
+				Directory.CreateDirectory(uploadFolder);
+			}
+
+			// Tạo đường dẫn đến tập tin lưu trữ
+			filePath = Path.Combine(uploadFolder, file.Name);
+
+			courseEdit.image = file.Name;
+		}
+	}
+
+	void HandleInput(ChangeEventArgs e)
+	{
+		searchCourse = e.Value.ToString();
+	}
+
+	private void SearchCourse(KeyboardEventArgs e)
+	{
+		if (e.Key == "Enter")
+		{
+			if (string.IsNullOrEmpty(searchCourse))
+				courses = Shared.CloneList(coursesTemp);
+			else
+				courses = coursesTemp.Where(x => x.name.ToLower().Contains(searchCourse)).ToList();
+		}
+	}
+
+
 }

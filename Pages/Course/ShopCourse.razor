@@ -1,676 +1,201 @@
 ﻿@page "/shope-course"
 
-	<!-- header navbar with search -->
+<!-- header navbar with search -->
 <Header></Header>
 <!-- Page content -->
-	<div class="page-content" style="padding-top: 66px;">
+<div class="page-content" style="">
+	<!-- Page header -->
+	<!-- Content -->
+	<div class="page-content">
 		<!-- Page header -->
-		<section class=" py-2 py-lg-3">
-			<div class="container">
-				<div class="row align-items-center">
-					<div class="col-xl-12 col-lg-12 col-md-12 col-12">
-						<div>
-							<h1 class="mb-0 text-dark display-4">Course</h1>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
 		<!-- Content -->
-		<section class="py-6">
+		<section class="section pt-4	x	">
 			<div class="container">
-				<div class="row">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-4">
-						<div class="row d-md-flex justify-content-between align-items-center">
-							<div class="d-inline-flex col-md-6 col-lg-4 col-xl-3">
-								<select class="form-select ">
-									<option value="">Sort by</option>
-									<option value="Newest">Newest</option>
-									<option value="Most Popular">Most Popular</option>
-									<option value="Highest Rated">Highest Rated</option>
-								</select>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-lg-3 col-md-4 col-12 mb-4 mb-lg-0">
-						<!-- Card -->
-						<div class="card blur-background">
-							<!-- Card header -->
-							<div class="card-header">
-								<h4 class="mb-0 has-text-white">Filter</h4>
-							</div>
-							<!-- Card body -->
-							<div class="card-body">
-								<span class="dropdown-header px-0 mb-2">Category</span>
-								<!-- Checkbox -->
-								<div class="form-check mb-1">
-									<input type="checkbox" class="form-check-input" id="reactCheck" >
-									<label class="form-check-label" for="reactCheck">Front-end</label>
+				<div class="columns">
+					<!-- function content -->
+					<div class="column is-one-fifth">
+
+						<div class="p-3" style="border-radius: 6px;">
+							<!-- Card -->
+							<div class="blur-background">
+								<!-- Card header -->
+								<div class="columns is-vcentered">
+									<div class="column">
+										<div class="p-0">
+											<h1 class="title primary-color">Course</h1>
+										</div>
+									</div>
 								</div>
-								<!-- Checkbox -->
-								<div class="form-check mb-1">
-									<input type="checkbox" class="form-check-input" id="javascriptCheck">
-									<label class="form-check-label" for="javascriptCheck">Back-end</label>
+								<div class="card-header mb-2">
+									<h4 class="title is-4 mb-0">Filter</h4>
 								</div>
-								<!-- Checkbox -->
-								<div class="form-check mb-1">
-									<input type="checkbox" class="form-check-input" id="angularCheck">
-									<label class="form-check-label" for="angularCheck">Database</label>
+								<div class="select m-2">
+									<select>
+										<option value="">Sort by</option>
+										<option value="Newest">Newest</option>
+										<option value="Most Popular">Most Popular</option>
+										<option value="Highest Rated">Highest Rated</option>
+									</select>
 								</div>
-								<!-- Checkbox -->
-							</div>
-							<!-- Card body -->
-							<div class="card-body border-top">
-								<span class="dropdown-header px-0 mb-2">Skill Level</span>
-								<!-- Checkbox -->
-								<div class="form-check mb-1">
-									<input type="checkbox" class="form-check-input" id="allTwoCheck">
-									<label class="form-check-label" for="allTwoCheck">All Level</label>
+								<!-- Card body -->
+								<div class="card-content">
+									<span class="title is-6 px-0 mb-2 primary-color">Majors</span>
+									<!-- Checkbox -->
+									<div class="form-check mb-1">
+										<input @onclick="SelectAllMajor" type="checkbox" checked="@(filterMajor.Count == 0)">
+										<label for="reactCheck">All</label>
+									</div>
+									@foreach (var item in majors)
+									{
+										<div class="form-check mb-1">
+											<input @onclick="() => FilterMajor(item.id)" type="checkbox"  checked="@(filterMajor.Contains(item.id))">
+											<label>@item.name</label>
+										</div>
+									}
 								</div>
-								<!-- Checkbox -->
-								<div class="form-check mb-1">
-									<input type="checkbox" class="form-check-input" id="beginnerTwoCheck"
-												 checked>
-									<label class="form-check-label" for="beginnerTwoCheck">Beginner</label>
-								</div>
-								<!-- Checkbox -->
-								<div class="form-check mb-1">
-									<input type="checkbox" class="form-check-input" id="intermediateCheck">
-									<label class="form-check-label" for="intermediateCheck">Intermediate</label>
-								</div>
-								<!-- Checkbox -->
-								<div class="form-check mb-1">
-									<input type="checkbox" class="form-check-input" id="AdvancedTwoCheck">
-									<label class="form-check-label" for="AdvancedTwoCheck">Advance</label>
+								<!-- Card body -->
+								<!-- Card body -->
+								<div class="card-content">
+									<span class="title is-6 px-0 mb-2 primary-color">Level</span>
+									<!-- Checkbox -->
+									<div class="form-check mb-1">
+										<input @onclick="SelectAllLevel" type="checkbox" checked="@(filterLevel.Count == 0)">
+										<label for="reactCheck">All</label>
+									</div>
+									@foreach(var item in levels)
+									{
+										<div class="form-check mb-1">
+											<input @onclick="() => FilterLevel(item.id)" type="checkbox"  checked="@(filterLevel.Contains(item.id))" >
+											<label>@item.name</label>
+										</div>
+									}
 								</div>
 							</div>
 						</div>
 					</div>
+
 					<!-- Tab content -->
-					<div class="col-xl-9 col-lg-9 col-md-8 col-12">
-						<div class="tab-content">
-							<!-- Tab pane row -->
-							<div class="tab-pane fade show active pb-4" id="tabPaneList" role="tabpanel"
-									 aria-labelledby="tabPaneList">
-								<!-- Card -->
-								<div class="card blur-background mb-4 card-hover">
-									<div class="row g-0">
-										<a class="col-12 col-md-12 col-xl-3 col-lg-3 bg-cover img-left-rounded"
-											 style="background-image: url(../assets/images/course/course-vue.jpg)"
-											 href="#">
-											<img src="../assets/images/course/course-vue.jpg" alt="..."
-													 class="img-fluid d-lg-none invisible">
+					<div class="column">
+						<!-- Tab pane row -->
+						<div class="is-active pb-4" id="tabPaneList" role="tabpanel" aria-labelledby="tabPaneList">
+							<!-- card temp-->
+							@{
+								var courseTemp = Shared.CloneList(courses);
+								if (filterMajor.Count > 0)
+									courseTemp = courseTemp.Where(x => filterMajor.Contains(x.major_id)).ToList();
+								if(filterLevel.Count > 0)
+								{
+									courseTemp = courseTemp.Where(x => filterLevel.Contains(x.level)).ToList();
+								}
+							}
+							@foreach (var item in courseTemp)
+							{
+								var instructor = instructors.FirstOrDefault(x => x.id == item.instructor);
+								<div class="card hover-zoom tns-item-row m-0">
+									<div class="columns box-shadow is-multiline" style="border-radius: 20px;">
+										<a class="column is-one-quarter" href="/course-detail/@item.id">
+											<div class="card-image">
+												<figure class="image">
+													<img src="./assets/images/upload/@item.image" alt="course">
+												</figure>
+											</div>
 										</a>
-										<div class="col-lg-9 col-md-12 col-12">
-											<!-- Card body -->
-											<div class="card-body">
-												<h3 class="mb-2 text-truncate-line-2">
-													<a href="#"
-														 class="text-inherit">Vue.js Components Fundamentals</a>
-												</h3>
-												<!-- List inline -->
-												<ul class="mb-5 list-inline">
-													<li class="list-inline-item">
-														<span>
-															<svg xmlns="http://www.w3.org/2000/svg" width="12"
-																	 height="12" fill="currentColor"
-																	 class="bi bi-clock align-baseline"
-																	 viewBox="0 0 16 16">
-																<path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z">
-																</path>
-																<path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z">
-																</path>
-															</svg>
-														</span>
-														<span>3h 56m -</span>
-														<span>128 Lectures -</span>
-														<span>All Level</span>
-													</li>
-													<li class="list-inline-item">
-														<span class="align-text-top lh-1">
-															<span class="fs-6">
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-															</span>
-														</span>
+										<div class="column">
+											<div class="media is-justify-content-space-between">
+												<div class="media-content">
+													<p class="title is-6">
+														<a>
+															@item.name
+														</a>
+													</p>
+													<div class="is-flex is-align-items-center">
+														<figure class="image is-32x32 mr-2">
+															<img class="is-rounded"
+																	 src="../assets/images/avatar/Firefly person avatar, realistic female2.jpg"
+																	 alt="avatar">
+														</figure>
+														<p class="subtitle is-6 has-text-light">@instructor.full_name</p>
+													</div>
+												</div>
+												<div class="media-right">
+													<span class="icon has-text-light">
+														<i class="fas fa-bookmark"></i>
+													</span>
+												</div>
+											</div>
+											<div class="content has-text-light">
+												<div class="is-flex is-align-items-center">
+													<time datetime="2016-1-1">3h 56m</time>
+													<span class="icon has-text-warning ml-6">
+														<i class="fas fa-star"></i>
+														<i class="fas fa-star"></i>
+														<i class="fas fa-star"></i>
+														<i class="fas fa-star"></i>
+														<i class="fas fa-star"></i>
+													</span>
+													<span class="has-text-warning ml-6">4.5</span>
+													<span class="ml-2">(7,700)</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 
-														<span class="text-warning">4.5</span>
-														<span class="fs-6">(9,300)</span>
-													</li>
-												</ul>
-												<!-- Row -->
-												<div class="row align-items-center g-0">
-													<div class="col-auto">
-														<img src="../assets/images/avatar/Firefly person avatar, realistic male1.jpg"
-																 class="rounded-circle avatar-xs" alt="">
-													</div>
-													<div class="col ms-2">
-														<span>Morris Mccoy</span>
-													</div>
-													<div class="col-auto">
-														<a href="#" class="text-reset bookmark">
-															<i class="fe fe-bookmark fs-4"></i>
-														</a>
-													</div>
-												</div>
-												<div></div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- Card -->
-								<div class="card blur-background mb-4 card-hover">
-									<!-- Row -->
-									<div class="row g-0">
-										<a class="col-12 col-md-12 col-xl-3 col-lg-3 bg-cover img-left-rounded"
-											 style="background-image: url(../assets/images/course/course-bootstrap.jpg)"
-											 href="#">
-											<img src="../assets/images/course/course-bootstrap.jpg" alt="..."
-													 class="img-fluid d-lg-none invisible">
-										</a>
-										<div class="col-lg-9 col-md-12 col-12">
-											<!-- Card body -->
-											<div class="card-body">
-												<h3 class="mb-2 text-truncate-line-2">
-													<a href="#"
-														 class="text-inherit">Bootstrap 5 Beginner Tutorial</a>
-												</h3>
-												<!-- List inline -->
-												<ul class="mb-5 list-inline">
-													<li class="list-inline-item">
-														<span>
-															<svg xmlns="http://www.w3.org/2000/svg" width="12"
-																	 height="12" fill="currentColor"
-																	 class="bi bi-clock align-baseline"
-																	 viewBox="0 0 16 16">
-																<path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z">
-																</path>
-																<path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z">
-																</path>
-															</svg>
-														</span>
-														<span>2h 46m -</span>
-														<span>128 Lectures -</span>
-														<span>All Level</span>
-													</li>
-													<li class="list-inline-item">
-														<span class="align-text-top lh-1">
-															<span class="fs-6">
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-															</span>
-														</span>
-
-														<span class="text-warning">4.5</span>
-														<span class="fs-6">(7,900)</span>
-													</li>
-												</ul>
-												<!-- Row -->
-												<div class="row align-items-center g-0">
-													<div class="col-auto">
-														<img src="../assets/images/avatar/Firefly person avatar, realistic male1.jpg"
-																 class="rounded-circle avatar-xs" alt="">
-													</div>
-													<div class="col ms-2">
-														<span>Ted Hawkins</span>
-													</div>
-													<div class="col-auto">
-														<a href="#" class="text-reset bookmark">
-															<i class="fe fe-bookmark fs-4"></i>
-														</a>
-													</div>
-												</div>
-												<div></div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- Card -->
-								<div class="card blur-background mb-4 card-hover">
-									<!-- Row -->
-									<div class="row g-0">
-										<a class="col-12 col-md-12 col-xl-3 col-lg-3 bg-cover img-left-rounded"
-											 style="background-image: url(../assets/images/course/course-graphql.jpg)"
-											 href="#">
-											<img src="../assets/images/course/course-graphql.jpg" alt="..."
-													 class="img-fluid d-lg-none invisible">
-										</a>
-										<div class="col-lg-9 col-md-12 col-12">
-											<!-- Card body -->
-											<div class="card-body">
-												<h3 class="mb-2 text-truncate-line-2">
-													<a href="#"
-														 class="text-inherit">Getting Started WithGraphQL.js</a>
-												</h3>
-												<!-- List inline -->
-												<ul class="mb-5 list-inline">
-													<li class="list-inline-item">
-														<span>
-															<svg xmlns="http://www.w3.org/2000/svg" width="12"
-																	 height="12" fill="currentColor"
-																	 class="bi bi-clock align-baseline"
-																	 viewBox="0 0 16 16">
-																<path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z">
-																</path>
-																<path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z">
-																</path>
-															</svg>
-														</span>
-														<span>1h 30m -</span>
-														<span>128 Lectures -</span>
-														<span>All Level</span>
-													</li>
-													<li class="list-inline-item">
-														<span class="align-text-top lh-1">
-															<span class="fs-6">
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-															</span>
-														</span>
-
-														<span class="text-warning">4.5</span>
-
-														<span class="fs-6">(8,245)</span>
-													</li>
-												</ul>
-												<!-- Row -->
-												<div class="row align-items-center g-0">
-													<div class="col-auto">
-														<img src="../assets/images/avatar/Firefly person avatar, realistic female2.jpg"
-																 class="rounded-circle avatar-xs" alt="">
-													</div>
-													<div class="col ms-2">
-														<span>Juanita Bell</span>
-													</div>
-													<div class="col-auto">
-														<a href="#" class="text-reset bookmark">
-															<i class="fe fe-bookmark fs-4"></i>
-														</a>
-													</div>
-												</div>
-												<div></div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- Card -->
-								<div class="card blur-background mb-4 card-hover">
-									<!-- Row -->
-									<div class="row g-0">
-										<a class="col-12 col-md-12 col-xl-3 col-lg-3 bg-cover img-left-rounded"
-											 style="background-image: url(../assets/images/course/course-react.jpg)"
-											 href="#">
-											<img src="../assets/images/course/course-react.jpg" alt="..."
-													 class="img-fluid d-lg-none invisible">
-										</a>
-										<div class="col-lg-9 col-md-12 col-12">
-											<!-- Card body -->
-											<div class="card-body">
-												<h3 class="mb-2 text-truncate-line-2">
-													<a href="#"
-														 class="text-inherit">The Beginner's Guide to React</a>
-												</h3>
-												<!-- List inline -->
-												<ul class="mb-5 list-inline">
-													<li class="list-inline-item">
-														<span>
-															<svg xmlns="http://www.w3.org/2000/svg" width="12"
-																	 height="12" fill="currentColor"
-																	 class="bi bi-clock align-baseline"
-																	 viewBox="0 0 16 16">
-																<path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z">
-																</path>
-																<path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z">
-																</path>
-															</svg>
-														</span>
-														<span>2h 30m</span>
-														<span>128 Lectures -</span>
-														<span>All Level</span>
-													</li>
-													<li class="list-inline-item">
-														<span class="align-text-top lh-1">
-															<span class="fs-6">
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-															</span>
-														</span>
-														<span class="text-warning">4.5</span>
-														<span class="fs-6">(3,200)</span>
-													</li>
-												</ul>
-												<!-- Row -->
-												<div class="row align-items-center g-0">
-													<div class="col-auto">
-														<img src="../assets/images/avatar/Firefly person avatar, realistic female1.jpg"
-																 class="rounded-circle avatar-xs" alt="">
-													</div>
-													<div class="col ms-2">
-														<span>Claire Robertson</span>
-													</div>
-													<div class="col-auto">
-														<a href="#" class="text-reset bookmark">
-															<i class="fe fe-bookmark fs-4"></i>
-														</a>
-													</div>
-												</div>
-												<div></div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- Card -->
-								<div class="card blur-background mb-4 card-hover">
-									<div class="row g-0">
-										<a class="col-12 col-md-12 col-xl-3 col-lg-3 bg-cover img-left-rounded"
-											 style="background-image: url(../assets/images/course/course-javascript.jpg)"
-											 href="#">
-											<img src="../assets/images/course/course-javascript.jpg" alt="..."
-													 class="img-fluid d-lg-none invisible">
-										</a>
-										<div class="col-lg-9 col-md-12 col-12">
-											<!-- Card body -->
-											<div class="card-body">
-												<h3 class="mb-2 text-truncate-line-2">
-													<a href="#"
-														 class="text-inherit">
-														Applying JavaScript and using the
-														console.
-													</a>
-												</h3>
-												<!-- List inline -->
-												<ul class="mb-5 list-inline">
-													<li class="list-inline-item">
-														<span>
-															<svg xmlns="http://www.w3.org/2000/svg" width="12"
-																	 height="12" fill="currentColor"
-																	 class="bi bi-clock align-baseline"
-																	 viewBox="0 0 16 16">
-																<path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z">
-																</path>
-																<path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z">
-																</path>
-															</svg>
-														</span>
-														<span>1h 30m -</span>
-														<span>128 Lectures -</span>
-														<span>All Level</span>
-													</li>
-													<li class="list-inline-item">
-														<span class="align-text-top lh-1">
-															<span class="fs-6">
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-															</span>
-														</span>
-														<span class="text-warning">4.5</span>
-														<span class="fs-6">(6,600)</span>
-													</li>
-												</ul>
-												<!-- Row -->
-												<div class="row align-items-center g-0">
-													<div class="col-auto">
-														<img src="../assets/images/avatar/Firefly person avatar, realistic female3.jpg"
-																 class="rounded-circle avatar-xs" alt="">
-													</div>
-													<div class="col ms-2">
-														<span>Ted Hawkins</span>
-													</div>
-													<div class="col-auto">
-														<a href="#" class="text-reset bookmark">
-															<i class="fe fe-bookmark fs-4"></i>
-														</a>
-													</div>
-												</div>
-												<div></div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- Card -->
-								<div class="card blur-background mb-4 card-hover">
-									<div class="row g-0">
-										<a class="col-12 col-md-12 col-xl-3 col-lg-3 bg-cover img-left-rounded"
-											 style="background-image: url(../assets/images/course/course-node.jpg)"
-											 href="#">
-											<img src="../assets/images/course/course-node.jpg" alt="..."
-													 class="img-fluid d-lg-none invisible">
-										</a>
-										<div class="col-lg-9 col-md-12 col-12">
-											<!-- Card body -->
-											<div class="card-body">
-												<h3 class="mb-2 text-truncate-line-2">
-													<a href="#"
-														 class="text-inherit">
-														Node.js Tutorials - For beginners
-														and
-														professionals
-													</a>
-												</h3>
-												<!-- list inline -->
-												<ul class="mb-5 list-inline">
-													<li class="list-inline-item">
-														<span>
-															<svg xmlns="http://www.w3.org/2000/svg" width="12"
-																	 height="12" fill="currentColor"
-																	 class="bi bi-clock align-baseline"
-																	 viewBox="0 0 16 16">
-																<path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z">
-																</path>
-																<path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z">
-																</path>
-															</svg>
-														</span>
-														<span>1h 30m -</span>
-														<span>128 Lectures -</span>
-														<span>All Level</span>
-													</li>
-													<li class="list-inline-item">
-														<span class="align-text-top lh-1">
-															<span class="fs-6">
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-																<svg xmlns="http://www.w3.org/2000/svg"
-																		 width="11" height="11" fill="currentColor"
-																		 class="bi bi-star-fill text-warning"
-																		 viewBox="0 0 16 16">
-																	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-																</svg>
-															</span>
-														</span>
-														<span class="text-warning">4.5</span>
-														<span class="fs-6">(2,700)</span>
-													</li>
-												</ul>
-												<!-- row -->
-												<div class="row align-items-center g-0">
-													<div class="col-auto">
-														<img src="../assets/images/avatar/gigachad.jpg"
-																 class="rounded-circle avatar-xs" alt="">
-													</div>
-													<div class="col ms-2">
-														<span>Sumona Khaat</span>
-													</div>
-													<div class="col-auto">
-														<a href="#" class="text-reset bookmark">
-															<i class="fe fe-bookmark fs-4"></i>
-														</a>
-													</div>
-												</div>
-												<div></div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+							}
+							
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
 	</div>
+</div>
 @code {
+	[CascadingParameter]
+	public MainLayout Layout { get; set; }
+	private CourseModel courseEdit = new();
+	private bool editCourse = false;
+	private List<MajorModel> majors = new();
+	private List<UserModel> instructors = new();
+	private List<CourseModel> courses = new();
+	private List<StaticModel> levels = new();
 
+	private List<string> filterMajor = new();
+	private List<int> filterLevel = new();
+
+
+	protected override async Task OnInitializedAsync()
+	{
+		courses = await DbCourse.GetAll();
+		Console.WriteLine(courses.Count);
+		instructors = await DbUser.GetByRole(2);
+		levels = Service.ModuleService.ListLevel();
+		majors = await DbMajor.GetAll();
+	}
+
+	private void FilterMajor(string value)
+	{
+		if (filterMajor.Contains(value))
+			filterMajor.Remove(value);
+		else
+			filterMajor.Add(value);
+	}
+
+	private void FilterLevel(int value)
+	{
+		if (filterLevel.Contains(value))
+			filterLevel.Remove(value);
+		else
+			filterLevel.Add(value);
+	}
+
+	private void SelectAllMajor()
+	{
+		filterMajor.Clear();
+	}
+
+	private void SelectAllLevel()
+	{
+		filterLevel.Clear();
+	}
 }

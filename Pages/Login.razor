@@ -104,8 +104,6 @@
 
   private async Task SignIn()
   {
-    try
-    {
       message = null;
       if (string.IsNullOrEmpty(email))
       {
@@ -122,16 +120,17 @@
       if (user == null)
       {
         message = "Email or Password is wrong!";
+        return;
       } else
       {
+        if (!user.active)
+        {
+          message = "Tài khoản đã bị khóa!";
+          return;
+        }
         Layout.User = user;
         await JSRuntime.InvokeVoidAsync("setCookie", "_user", user.id);
         navigation.NavigateTo("/homepage");
       }
-
-    } catch (Exception e)
-    {
-      Console.WriteLine("lỗi");
-    }
   }
 }

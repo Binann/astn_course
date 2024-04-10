@@ -35,7 +35,7 @@
 						<div class="dropdown-divider"></div>
 						<ul class="list-unstyled">
 							<li>
-								<a class="icon-text px-2 py-1">
+								<a href="/account/@Layout.User.id" class="icon-text px-2 py-1">
 									<span class="icon">
 										<i class="fas fa-user"></i>
 									</span>
@@ -72,16 +72,33 @@
 	[CascadingParameter]
 	public MainLayout Layout { get; set; }
 
-	protected override Task OnInitializedAsync()
+	protected override async Task OnAfterRenderAsync(bool firstrender)
 	{
-		return base.OnInitializedAsync();
+		if (Layout.User == null)
+		{
+			var userID = await JSRuntime.InvokeAsync<string>("getCookie", "_user");
+			if (!string.IsNullOrEmpty(userID))
+			{
+				Layout.User = await DbUser.GetById(userID);
+				if (Layout.User == null)
+				{
+					await JSRuntime.InvokeVoidAsync("deleteCookie", "_user");
+				}
+				StateHasChanged();
+			}
+			else
+			{
+				navigation.NavigateTo("");
+			}
+		}
 	}
 
 
 	private async void SignOut()
 	{
-		Layout.User = null;
 		await JSRuntime.InvokeVoidAsync("deleteCookie", "_user");
 		navigation.NavigateTo("/");
+		Layout.User = null;
+
 	}
 }

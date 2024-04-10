@@ -1,6 +1,9 @@
 ﻿using System.Reflection;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json;
+
 
 namespace astn_course.Handled
 {
@@ -1184,23 +1187,23 @@ namespace astn_course.Handled
 
     #region Các hàm liên quan đến Object
 
-    //public static List<T> CloneList<T>(List<T> self)
-    //{
-    //  var result = new List<T>();
+    public static List<T> CloneList<T>(List<T> self)
+    {
+      var result = new List<T>();
 
-    //  foreach (var item in self)
-    //  {
-    //    result.Add(Clone(item));
-    //  }
+      foreach (var item in self)
+      {
+        result.Add(Clone(item));
+      }
 
-    //  return result;
-    //}
+      return result;
+    }
 
-    //public static T Clone<T>(T self)
-    //{
-    //  var serialized = JsonConvert.SerializeObject(self);
-    //  return JsonConvert.DeserializeObject<T>(serialized);
-    //}
+    public static T Clone<T>(T self)
+    {
+      var serialized = JsonConvert.SerializeObject(self);
+      return JsonConvert.DeserializeObject<T>(serialized);
+    }
 
     public static void PrintObject(Object obj)
     {

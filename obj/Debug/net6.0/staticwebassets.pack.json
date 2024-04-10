@@ -9233,6 +9233,38 @@
       "PackagePath": "staticwebassets\\assets\\images\\svg\\x.svg"
     },
     {
+      "Id": "D:\\APPLICATION DEVELOPMENT\\code\\astn_course\\wwwroot\\assets\\images\\upload\\course-angular.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\upload\\course-angular.jpg"
+    },
+    {
+      "Id": "D:\\APPLICATION DEVELOPMENT\\code\\astn_course\\wwwroot\\assets\\images\\upload\\course-css.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\upload\\course-css.jpg"
+    },
+    {
+      "Id": "D:\\APPLICATION DEVELOPMENT\\code\\astn_course\\wwwroot\\assets\\images\\upload\\course-html.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\upload\\course-html.jpg"
+    },
+    {
+      "Id": "D:\\APPLICATION DEVELOPMENT\\code\\astn_course\\wwwroot\\assets\\images\\upload\\course-laravel.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\upload\\course-laravel.jpg"
+    },
+    {
+      "Id": "D:\\APPLICATION DEVELOPMENT\\code\\astn_course\\wwwroot\\assets\\images\\upload\\course-node.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\upload\\course-node.jpg"
+    },
+    {
+      "Id": "D:\\APPLICATION DEVELOPMENT\\code\\astn_course\\wwwroot\\assets\\images\\upload\\course-python.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\upload\\course-python.jpg"
+    },
+    {
+      "Id": "D:\\APPLICATION DEVELOPMENT\\code\\astn_course\\wwwroot\\assets\\images\\upload\\course-react.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\upload\\course-react.jpg"
+    },
+    {
+      "Id": "D:\\APPLICATION DEVELOPMENT\\code\\astn_course\\wwwroot\\assets\\images\\upload\\course-wordpress.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\upload\\course-wordpress.jpg"
+    },
+    {
       "Id": "D:\\APPLICATION DEVELOPMENT\\code\\astn_course\\wwwroot\\assets\\js\\app.js",
       "PackagePath": "staticwebassets\\assets\\js\\app.js"
     },

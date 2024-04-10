@@ -14,6 +14,14 @@ namespace astn_course.Data
 			return result;
 		}
 
+		public static async Task<List<UserModel>> GetByRole(int role)
+		{
+			var db = Mongo.DbConnect(Mongo._database);
+			var collection = db.GetCollection<UserModel>(_collection);
+			var result = collection.FindAsync( x =>  x.role == role).Result.ToList();
+			return result;
+		}
+
 		public static async Task<UserModel> GetById(string id)
 		{
 			var db = Mongo.DbConnect(Mongo._database);
