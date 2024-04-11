@@ -1,6 +1,7 @@
 ﻿@page "/course-resume/{id}"
 @using System.Text.Json
 @inject IJSRuntime JSRuntime
+@inject NavigationManager navigtion
 
 <!-- Page content -->
 <div class="text-dark">
@@ -28,9 +29,28 @@
               <ul class="collapse-content ">
                 @foreach (var item in lessons)
                 {
-                  <li>
-                    <a @onclick="() => ChangeLesson(item)" class="menu-link is-flex is-justify-content-space-between">
+                  var lesson_learned = learned.lessons.FirstOrDefault(x => x.id == item.id);
+                  var check = lesson_learned != null && lesson_learned.done;
+                  <li class="@(lesson.id == item.id ? "background-darkmode-dark" : "")" style="border-radius: 4px">
+                    <a @onclick="() => ChangeLesson(item)" class="menu-link is-flex is-justify-content-space-between @(check ? "has-text-success " : "")">
                       <div class="flex-content text_course">
+
+                        @if (check)
+                        {
+                        <span class="icon">
+                          <a @onclick="() => UpdateStatusLesson(item.id)" class="has-text-success">
+                            <i class="fa-regular fa-square-check"></i>
+                          </a>
+                        </span>
+                        }
+                        else 
+                        {
+                          <span class="icon">
+                            <a class="" @onclick="() => UpdateStatusLesson(item.id)">
+                              <i class="fa-regular fa-square"></i>
+                            </a>
+                          </span>
+                        }
                         <span class="icon"><i class="fe fe-play fs-6"></i></span>
                         <span>@item.name</span>
                       </div>
@@ -273,6 +293,7 @@
   private LessonModel lesson;
 
   private List<LessonModel> lessons = new();
+  private LearnedModel learned = new();
   private bool rate;
 
   [Parameter]
@@ -282,17 +303,56 @@
   {
     lessons = await DbLesson.GetAllByCourse(id);
     lesson = lessons.FirstOrDefault(x => true);
+    learned = await DbLearned.GetById(id);
   }
 
-  private void ChangeLesson(LessonModel model)
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+  {
+    if(Layout.User != null)
+    {
+      if (!Layout.User.courses.Contains(id))
+      {
+        navigtion.NavigateTo("shope-course");
+      }
+    }
+    
+  }
+
+  private async void ChangeLesson(LessonModel model)
   {
     lesson = model;
+    if (learned.lessons.FirstOrDefault(x => x.id == id) == null)
+    {
+      LearnedModel.Lesson lesson_learned = new();
+      lesson_learned.id = model.id;
+      lesson_learned.date = DateTime.Now.Ticks;
+      learned.lessons.Add(lesson_learned);
+      await DbLearned.Update(learned);
+    }
   }
 
   private async void OpenRate()
   {
     rate = true;
     await JSRuntime.InvokeVoidAsync("RateCourse", null);
+  }
+
+  private async void UpdateStatusLesson(string id)
+  {
+    if(learned.lessons.FirstOrDefault(x => x.id == id) == null)
+    {
+      LearnedModel.Lesson lesson_learned = new();
+      lesson_learned.id = id;
+      lesson_learned.date = DateTime.Now.Ticks;
+      learned.lessons.Add(lesson_learned);
+      await DbLearned.Update(learned);
+    } else
+    {
+      var lesson_learned = learned.lessons.FirstOrDefault(x => x.id == id);
+      lesson_learned.done = !lesson_learned.done;
+      learned.lessons = learned.lessons.Select(x => x.id == lesson_learned.id ? lesson_learned : x).ToList();
+      await DbLearned.Update(learned);
+    }
   }
 
   [JSInvokable]

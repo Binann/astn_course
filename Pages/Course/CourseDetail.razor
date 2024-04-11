@@ -605,11 +605,11 @@
     {
       lessons = await DbLesson.GetAllByCourse(id);
       course = await DbCourse.GetById(id);
-      instructor = await DbUser.GetById(course.instructor);
       if (course == null)
       {
         navigation.NavigateTo("homepage");
       }
+      instructor = await DbUser.GetById(course.instructor);
     }
     else
     {
@@ -640,8 +640,18 @@
     if (!Layout.User.courses.Contains(course.id))
       Layout.User.courses.Add(course.id);
     inputKey = false;
+
+    LearnedModel learnedModel = new();
+    learnedModel.course = course.id;
+    learnedModel.course_name = course.name;
+    learnedModel.date_start = DateTime.Now.Ticks;
+    learnedModel.user = Layout.User.id;
+    learnedModel.instructor = course.instructor;
+    await DbLearned.Create(learnedModel);
+
     await DbUser.Update(Layout.User);
 		await DbCourse.Update(course);
+
 	}
 
 

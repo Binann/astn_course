@@ -1,5 +1,6 @@
 ﻿@page "/admin-instructor"
 @inject IJSRuntime JSRuntime
+@inject NavigationManager navigation
 
 <div id="db-wrapper">
 	<!-- navbar vertical -->
@@ -482,6 +483,13 @@
 				name = "Instructor",
 			},
 		};
+	}
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (Layout.User != null && Layout.User.role != 1)
+		{
+			navigation.NavigateTo("admin-course-overview");
+		}
 	}
 	private void ChangerRole(ChangeEventArgs e)
 	{

@@ -58,3 +58,4 @@ D:\APPLICATION DEVELOPMENT\code\astn_course\obj\Debug\net6.0\refint\astn_course.
 D:\APPLICATION DEVELOPMENT\code\astn_course\obj\Debug\net6.0\astn_course.pdb
 D:\APPLICATION DEVELOPMENT\code\astn_course\obj\Debug\net6.0\astn_course.genruntimeconfig.cache
 D:\APPLICATION DEVELOPMENT\code\astn_course\obj\Debug\net6.0\ref\astn_course.dll
+D:\APPLICATION DEVELOPMENT\code\astn_course\bin\Debug\net6.0\CsvHelper.dll

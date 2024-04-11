@@ -9,6 +9,7 @@
       "astn_course/1.0.0": {
         "dependencies": {
           "Blazorise.Bulma": "1.5.0",
+          "CsvHelper": "31.0.3",
           "MongoDB.Bson": "2.24.0",
           "MongoDB.Driver": "2.24.0",
           "MongoDB.Driver.Core": "2.24.0",
@@ -70,6 +71,14 @@
           "lib/net6.0/Blazorise.Licensing.dll": {
             "assemblyVersion": "1.2.0.0",
             "fileVersion": "1.2.0.0"
+          }
+        }
+      },
+      "CsvHelper/31.0.3": {
+        "runtime": {
+          "lib/net6.0/CsvHelper.dll": {
+            "assemblyVersion": "31.0.0.0",
+            "fileVersion": "31.0.3.17"
           }
         }
       },
@@ -353,6 +362,13 @@
       "sha512": "sha512-h7jkAF+yyIKnUqFYivaxIySDma1zLV+0xcg52r2gIe772BLQWnBaANjpMBKXxRlYiEyOGPQWjMHJWs3dL/TgmA==",
       "path": "blazorise.licensing/1.2.0",
       "hashPath": "blazorise.licensing.1.2.0.nupkg.sha512"
+    },
+    "CsvHelper/31.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ygck8DR4mG/VDA/LgIVVGpEtXXPDVaaNZNJGrOAJ4pckVw4MbAQ3n/u6YFDv3bwlQhlxTmPhCyk5E4hxe96Crg==",
+      "path": "csvhelper/31.0.3",
+      "hashPath": "csvhelper.31.0.3.nupkg.sha512"
     },
     "DnsClient/1.6.1": {
       "type": "package",

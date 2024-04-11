@@ -431,7 +431,6 @@
 		showInfor = false;
 		courses = await DbCourse.GetAll();
 		coursesTemp = Shared.CloneList(courses);
-		Console.WriteLine(courses.Count);
 		users = await DbUser.GetAll();
 		instructors = users.Where(x => x.role == 2).ToList();
 		levels = Service.ModuleService.ListLevel();
@@ -483,7 +482,6 @@
 			error = "Please input name for course";
 			return false;
 		}
-		Console.WriteLine(courseEdit.major_id);
 		if (string.IsNullOrEmpty(courseEdit.major_id))
 		{
 			error = "Please choose major for course";

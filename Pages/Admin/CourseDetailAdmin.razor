@@ -278,9 +278,19 @@
     }
   }
 
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+  {
+    if(Layout.User != null)
+    {
+      if (course.instructor != Layout.User.id && course.creator != Layout.User.id)
+      {
+        navigation.NavigateTo("admin-course-overview");
+      }
+    }
+  }
+
   private void CheckPos()
   {
-    Console.WriteLine("chay");
     if (pos < 1 || pos > course.lesson.Count + 1)
     {
       if (string.IsNullOrEmpty(lesson.id))

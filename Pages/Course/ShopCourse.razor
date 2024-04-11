@@ -159,7 +159,6 @@
 	private List<UserModel> instructors = new();
 	private List<CourseModel> courses = new();
 	private List<StaticModel> levels = new();
-
 	private List<string> filterMajor = new();
 	private List<int> filterLevel = new();
 
@@ -167,7 +166,6 @@
 	protected override async Task OnInitializedAsync()
 	{
 		courses = await DbCourse.GetAll();
-		Console.WriteLine(courses.Count);
 		instructors = await DbUser.GetByRole(2);
 		levels = Service.ModuleService.ListLevel();
 		majors = await DbMajor.GetAll();
