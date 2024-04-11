@@ -17,9 +17,6 @@ namespace astn_course.Model
 		public bool active { get; set; }	
 		public long date_create { get; set; }
     public string creator { get; set; }
-
 		public string course { get; set; }
-
-
   }
 }

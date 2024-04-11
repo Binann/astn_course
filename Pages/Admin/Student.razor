@@ -1,6 +1,7 @@
 ﻿@page "/admin-student"
-
+@inject IWebHostEnvironment WebHostEnvironment
 @inject IJSRuntime JSRuntime
+
 
 <div id="db-wrapper">
 	<!-- navbar vertical -->
@@ -32,12 +33,11 @@
 											<a href="../dashboard/admin-dashboard.html">Dashboard</a>
 										</li>
 										<li class="breadcrumb-item"><a href="#">User</a></li>
-										<li class="breadcrum	b-item active" aria-current="page">Instructor</li>
 									</ol>
 								</nav>
 							</div>
 							<div class="nav btn-group" role="tablist">
-								<a @onclick="AddInstructor" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newCatgory">Add New Instructor</a>
+								<a @onclick="AddInstructor" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newCatgory">Add New Student</a>
 							</div>
 						</div>
 					</div>
@@ -187,16 +187,17 @@
 											<div class="field">
 												<p class="is-6 has-text-white has-text-weight-bold">Last Name </p>
 												<div class="control">
-													<input @bind="userEdit.last_name" class="input" type="text" name="lastname" required="">
+													<input @bind="userEdit.last_name" class="input" type="text" required="">
 												</div>
 											</div>
 
 											<div class="field">
 												<p class="is-6 has-text-white has-text-weight-bold">Password </p>
 												<div class="control">
-													<input @bind="userEdit.password" class="input" type="password" id="password" name="password" required="">
+													<input @bind="userEdit.password" class="input" type="password"  required="">
 												</div>
 											</div>
+
 											@if (!checkValidate && !string.IsNullOrEmpty(message))
 											{
 												<div class="has-text-danger">
@@ -213,6 +214,7 @@
 											<div class="field is-flex pt-2">
 												<div class="control is-right">
 													<a @onclick="UpdateAccount" class="button is-link" type="submit">Add Account</a>
+													<a @onclick="() => importFile = true" class="button is-link" type="submit">Import File CSV</a>
 												</div>
 											</div>
 										</div>
@@ -405,6 +407,37 @@
 	</div>
 }
 
+@if (importFile)
+{
+	<div class="modal is-active " tabindex="-1" role="dialog" aria-labelledby="newCatgoryLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg">
+			<div class="modal-content bg-light">
+				<div class="modal-header">
+					<h4 class="modal-title mb-0 has-text-white" id="newCatgoryLabel">Import File CSV</h4>
+					<a type="button" class="btn-close" aria-label="Close"></a>
+				</div>
+				<div class="modal-body" style="width: 400px">
+					<div class="needs-validation" novalidate>
+						<div class="mb-3 mb-2">
+							<div class="form-label" for="title">
+								Title
+								<span class="text-danger">*</span>
+							</div>
+							<InputFile class="" OnChange="HanldeFileCSV" multiple />
+						</div>
+
+						<div>
+							<a @onclick="ImportFile" class="btn btn-primary">Import</a>
+							<a @onclick="() => importFile = false" type="button" class="btn btn-secondary danger">Close</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+
 @code {
 	[CascadingParameter]
 	public MainLayout Layout { get; set; }
@@ -417,11 +450,16 @@
 	private bool editStudent = false;
 	private bool checkValidate;
 	private string message;
+	private string error;
 	private string tempPassword;
 	private bool confirmDelete = false;
 	private bool userdetail = false;
 	private string searchStudent;
-
+	private IBrowserFile file;
+	private string filePath;
+	private long maxFileSize = 1024 * 2048;
+	private List<AuthModel> studentImport = new();
+	private bool importFile;
 
 	protected override async Task OnInitializedAsync()
 	{
@@ -461,6 +499,7 @@
 			},
 		};
 	}
+
 	private void ChangerRole(ChangeEventArgs e)
 	{
 		var role = int.Parse(e.Value.ToString());
@@ -542,7 +581,6 @@
 		userEdit = new();
 		userEdit.role = 0;
 		userEdit.active = true;
-		StateHasChanged();
 	}
 
 	private void UserDetail(UserModel model)
@@ -566,5 +604,59 @@
 				users = usersTemp.Where(x => x.full_name.ToLower().Contains(searchStudent)).ToList();
 		}
 	}
+
+	private async Task HanldeFileCSV(InputFileChangeEventArgs e)
+	{
+		file = e.File;
+
+		// Kiểm tra xem có file được chọn không
+		if (file != null)
+		{
+			// Tạo đường dẫn đến thư mục upload
+			var uploadFolder = Path.Combine(WebHostEnvironment.WebRootPath, "assets", "filesCSV");
+
+			// Tạo thư mục upload nếu chưa tồn tại
+			if (!Directory.Exists(uploadFolder))
+			{
+				Directory.CreateDirectory(uploadFolder);
+			}
+
+			// Tạo đường dẫn đến tập tin lưu trữ
+			filePath = Path.Combine(uploadFolder, file.Name);
+		}
+	}
+
+	private async Task ImportFile()
+	{
+		if (!file.Name.Contains("csv"))
+		{
+			error = "File you choose is not file CSV!!";
+			return;
+		}
+
+		using (var fileStream = new FileStream(filePath, FileMode.Create))
+		{
+			await file.OpenReadStream(maxFileSize).CopyToAsync(fileStream);
+		}
+
+		studentImport = await ModuleService.GetModelsAsync(filePath);
+		foreach(var item in studentImport)
+		{
+			UserModel model = new();
+			model.first_name = item.first_name;
+			model.last_name = item.last_name;
+			model.email = item.email;
+			model.password = "123";
+			model.active = true;
+			model.date_create = DateTime.Today.Ticks;
+			await DbUser.Create(model);
+		}
+
+		users = await DbUser.GetAll();
+		users = users.Where(x => x.role == 0).ToList();
+		importFile = false;
+
+	}
+
 
 }

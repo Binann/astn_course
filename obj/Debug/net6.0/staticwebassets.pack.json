@@ -25,6 +25,10 @@
       "PackagePath": "staticwebassets\\assets\\css\\theme.min.css"
     },
     {
+      "Id": "D:\\APPLICATION DEVELOPMENT\\code\\astn_course\\wwwroot\\assets\\filesCSV\\vgsales - Copy.csv",
+      "PackagePath": "staticwebassets\\assets\\filesCSV\\vgsales - Copy.csv"
+    },
+    {
       "Id": "D:\\APPLICATION DEVELOPMENT\\code\\astn_course\\wwwroot\\assets\\fonts\\feather\\feather.css",
       "PackagePath": "staticwebassets\\assets\\fonts\\feather\\feather.css"
     },

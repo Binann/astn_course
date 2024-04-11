@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\assets\filesCSV\" />
     <Folder Include="wwwroot\assets\images\upload\" />
   </ItemGroup>
 
